@@ -18,6 +18,7 @@ class CreateTemplatesTable extends Migration
             $table->timestamps();
             $table->integer('user_id')->nullable(false);
             $table->text('template')->nullable(false);
+            $table->integer('finger_id')->nullable(false);
         });
     }
 
