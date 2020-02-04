@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\SentTemplate;
 use Illuminate\Http\Request;
 use App\Template;
 
@@ -16,21 +17,32 @@ class TemplateController extends Controller
             'finger_id' => 'required'
         ]);
 
-        $template = Template::updateOrCreate(['finger_id' => $request->finger_id,'user_id' => $request->user_id]);
+        $template = Template::where('finger_id', $request->finger_id)->where('user_id', $request->user_id)->first();
+        if (empty($template)) $template = new Template();
+        $template->finger_id = $request->finger_id;
+        $template->template = $request->template;
+        $template->user_id = $request->user_id;
+        $template->save();
 
         return $template;
     }
 
     public function getTemplate(Request $request)
     {
-        $request->validate([
-           'user_id'=>'required',
+        $request->validate(['room_id' => 'required']);
+
+        $templates = Template::all();
+
+        if (empty($templates)) return response(['message' => 'not found']);
+
+        $sent_template = SentTemplate::where('room_id', $request->room_id )->first();
+        if (empty($sent_template)) $sent_template = new SentTemplate();
+        $sent_template->data = json_encode($templates,JSON_UNESCAPED_UNICODE);
+        $sent_template->room_id = $request->room_id;
+        $sent_template->save();
+
+        return response([
+            'templates' => $templates
         ]);
-
-        $template = Template::where(['user_id',$request->user_id])->get();
-
-        if (empty($template)) return response(['message' => 'not found']);
-
-        return $template;
     }
 }

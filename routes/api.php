@@ -21,4 +21,5 @@ Route::post('/register','Api\AuthController@register');
 Route::post('/login','Api\AuthController@login');
 
 Route::post('/set-template','Api\TemplateController@setTemplate')->middleware('auth:api');
+Route::post('/get-template','Api\TemplateController@getTemplate')->middleware('auth:api');
 
