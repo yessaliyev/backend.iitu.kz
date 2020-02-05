@@ -40,6 +40,7 @@ class TemplateController extends Controller
         $sent_template->data = json_encode($templates,JSON_UNESCAPED_UNICODE);
         $sent_template->room_id = $request->room_id;
         $sent_template->save();
+        $sent_template->touch();
 
         return response([
             'templates' => $templates

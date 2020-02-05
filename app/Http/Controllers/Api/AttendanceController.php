@@ -17,11 +17,15 @@ class AttendanceController extends Controller
            'index'=>'required'
         ]);
 
-        $sent_data = SentTemplate::where('room_id' , $request->room_id)->order_by('id','desc')->first();
+        $sent_data = SentTemplate::where('room_id' , $request->room_id)->orderBy('id','desc')->first();
 
-        if (empty()) return response(['message' => 'room not found']);
+        if (empty($sent_data)) return response(['message' => 'room not found']);
 
-        $attendance = new Attendance()
+        $att = new Attendance();
+        $att->room_id = $request->room_id;
+        $att->user_id = json_decode($sent_data->data,true)[$request->index]['user_id'];
+        $att->status = 1;
+        $att->save();
 
         return response([
            'message' => "OK!"
