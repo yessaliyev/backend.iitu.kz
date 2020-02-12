@@ -43,7 +43,11 @@ class AuthController extends Controller
 
         return response([
             'access_token'=>$access_token->accessToken,
-            'expires_at'=>$access_token->token->expires_at
+            'expires_at'=>$access_token->token->expires_at,
+            'timezone' => date_default_timezone_get(),
+            'type' => "Bearer",
+            'user_id' => auth()->user()->getAuthIdentifier(),
+            'role' => 'student'
         ]);
     }
 }
