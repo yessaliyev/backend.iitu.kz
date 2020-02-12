@@ -15,8 +15,7 @@ class AccessAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->hasRole('user')) return $next($request);
-
-        return response(['msg' => 'wws']);
+        if (Auth::user()->hasRole('admin')) return $next($request);
+        return response(['msg' => 'You are not allowed']);
     }
 }
