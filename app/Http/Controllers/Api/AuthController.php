@@ -31,7 +31,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validate_data = $request->validate([
+        $request->validate([
             'username' => 'required',
             'password' => 'required'
         ]);
@@ -40,28 +40,39 @@ class AuthController extends Controller
 
         try {
             $response = $http->post('http://dl.iitu.local/oauth/token', [
-            'form_params' => [
-                'grant_type' => 'password',
-                'client_id' => '2',
-                'client_secret' => 'pSpumdpMLgdE88tub4Fqrjth2uK3MV6gaY2VzaNf',
-                'username' => $request->username,
-                'password' => $request->password,
-            ],]);
+                'form_params' => [
+                    'grant_type' => 'password',
+                    'client_id' => '2',
+                    'client_secret' => 'pSpumdpMLgdE88tub4Fqrjth2uK3MV6gaY2VzaNf',
+                    'username' => $request->username,
+                    'password' => $request->password,
+                ]
+            ]);
 
-            $result = json_decode((string) $response->getBody(), true);
-            // Осы жерден типа Auth::user() деп тауып кетуге болмай ма???
+            $outh = json_decode((string) $response->getBody(), true);
 
-            //или тек баска жерге токен аркылы запрос жыберып барып алуга бола ма?
             try {
                 $user_data = $http->get('http://dl.iitu.local/api/get-user', [
                     'headers' => [
                         'Accept' => 'application/json',
-                        'Authorization' => 'Bearer '.$result['access_token'],
+                        'Authorization' => 'Bearer '.$outh['access_token'],
                     ]
                 ]);
-                return $user_data;
-                return response(['data' => $user_data->getBody()]);
+
+                $user = json_decode((string) $user_data->getBody(), true);
+
+                return [
+                    'token_type' => $outh['token_type'],
+                    'expires_in' => $outh['expires_in'],
+                    'access_token' => $outh['access_token'],
+                    'refresh_token'=> $outh['refresh_token'],
+                    'username' => $user['email'],
+                    'name' => $user['name'],
+                    'roles' => $user['roles']
+                ];
+
             }catch (GuzzleHttp\Exception\BadResponseException $e){
+
                 return response([
                     'message' => $e->getMessage(),
                     'status' => $e->getCode()
@@ -70,13 +81,28 @@ class AuthController extends Controller
             }
 
         }catch (GuzzleHttp\Exception\BadResponseException $e){
+
             return response([
                 'message' => $e->getMessage(),
                 'status' => $e->getCode()
             ]);
         }
+    }
 
+    public function refreshToken(Request $request){
+        $request->validate(['refresh_token' => 'required']);
+        $http = new GuzzleHttp\Client;
 
+        $response = $http->post('http://dl.iitu.local/oauth/token', [
+            'form_params' => [
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $request->refresh_token,
+                'client_id' => '2',
+                'client_secret' => 'pSpumdpMLgdE88tub4Fqrjth2uK3MV6gaY2VzaNf',
+                'scope' => '',
+            ],
+        ]);
 
+        return json_decode((string) $response->getBody(), true);
     }
 }
