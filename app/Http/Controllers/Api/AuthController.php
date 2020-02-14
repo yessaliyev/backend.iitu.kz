@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use GuzzleHttp;
@@ -11,19 +12,30 @@ use Auth;
 class AuthController extends Controller
 {
 
+
     public function register(Request $request)
     {
-        $validate_data = $request->validate([
-           'username'=>'required|unique:users',
-           'password'=>'required|confirmed'
-        ]);
+//        $validate_data = $request->validate([
+//            'username'=>'required|unique:users',
+//            'password'=>'required|confirmed',
+//            'role' => 'required|string'
+//        ]);
+
 
         $user = User::create([
            'username' => $request->username,
            'password' => bcrypt($request->password),
         ]);
 
+
+        $role = Role::where('role',$request->role)->first();
+
+        $user = User::find($user->id);
+
+        $user->roles()->attach($role->id);
+
         return $user;
+
     }
 
     public function login(Request $request)
@@ -33,23 +45,21 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-
-//        return $request;
         $http = new GuzzleHttp\Client;
 
         try {
             $response = $http->post('http://dl.iitu.local/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
-                    'client_id' => '2',
-                    'client_secret' => '8MY1LykOtCC8Q5LxQZFY550UxZfssMeBbM4aqagj',
+                    'client_id' => env('GRANT_CLIENT_ID'),
+                    'client_secret' => env('GRANT_CLIENT_SECRET'),
                     'username' => $request->username,
                     'password' => $request->password,
                 ]
             ]);
 
             $outh = json_decode((string) $response->getBody(), true);
-            return $outh;
+
             try {
                 $user_data = $http->get('http://dl.iitu.local/api/get-user', [
                     'headers' => [
@@ -59,7 +69,7 @@ class AuthController extends Controller
                 ]);
 
                 $user = json_decode((string) $user_data->getBody(), true);
-
+                return $user;
                 return [
                     'token_type' => $outh['token_type'],
                     'expires_in' => $outh['expires_in'],
@@ -96,8 +106,8 @@ class AuthController extends Controller
             'form_params' => [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $request->refresh_token,
-                'client_id' => '2',
-                'client_secret' => '8MY1LykOtCC8Q5LxQZFY550UxZfssMeBbM4aqagj',
+                'client_id' => env('GRANT_CLIENT_ID'),
+                'client_secret' => env('GRANT_CLIENT_SECRET'),
                 'scope' => '',
             ],
         ]);
