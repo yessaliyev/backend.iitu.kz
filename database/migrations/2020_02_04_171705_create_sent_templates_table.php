@@ -16,8 +16,8 @@ class CreateSentTemplatesTable extends Migration
         Schema::create('sent_templates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->integer('room_id')->nullable(false);
-            $table->text('data')->nullable(false);
+            $table->integer('room_id');
+            $table->text('data');
         });
     }
 

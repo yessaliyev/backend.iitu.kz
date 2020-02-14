@@ -16,9 +16,9 @@ class CreateTemplatesTable extends Migration
         Schema::create('templates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->integer('user_id')->nullable(false);
-            $table->text('template')->nullable(false);
-            $table->integer('finger_id')->nullable(false);
+            $table->integer('user_id');
+            $table->text('template');
+            $table->integer('finger_id');
         });
     }
 

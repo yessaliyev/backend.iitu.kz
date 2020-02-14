@@ -13,20 +13,17 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-       $validate_data = $request->validate([
-           'name'=>'required|max:50',
-           'email'=>'required|unique:users',
+        $validate_data = $request->validate([
+           'username'=>'required|unique:users',
            'password'=>'required|confirmed'
-       ]);
+        ]);
 
-       $validate_data['password'] = bcrypt($request->password);
-       $user = User::create($validate_data);
-       $access_token = $user->createToken('AuthToken')->accessToken;
+        $user = User::create([
+           'username' => $request->username,
+           'password' => bcrypt($request->password),
+        ]);
 
-       return response([
-           'user' => $user,
-           "access_token"=>$access_token
-       ]);
+        return $user;
     }
 
     public function login(Request $request)
@@ -36,6 +33,8 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+
+//        return $request;
         $http = new GuzzleHttp\Client;
 
         try {
@@ -43,14 +42,14 @@ class AuthController extends Controller
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => '2',
-                    'client_secret' => 'pSpumdpMLgdE88tub4Fqrjth2uK3MV6gaY2VzaNf',
+                    'client_secret' => '8MY1LykOtCC8Q5LxQZFY550UxZfssMeBbM4aqagj',
                     'username' => $request->username,
                     'password' => $request->password,
                 ]
             ]);
 
             $outh = json_decode((string) $response->getBody(), true);
-
+            return $outh;
             try {
                 $user_data = $http->get('http://dl.iitu.local/api/get-user', [
                     'headers' => [
@@ -98,7 +97,7 @@ class AuthController extends Controller
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $request->refresh_token,
                 'client_id' => '2',
-                'client_secret' => 'pSpumdpMLgdE88tub4Fqrjth2uK3MV6gaY2VzaNf',
+                'client_secret' => '8MY1LykOtCC8Q5LxQZFY550UxZfssMeBbM4aqagj',
                 'scope' => '',
             ],
         ]);
