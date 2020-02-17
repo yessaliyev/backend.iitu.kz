@@ -16,9 +16,11 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('name');
-            $table->integer('profession_id');
-            $table->integer('department_id');
+            $table->string('name_en');
+            $table->string('name_ru');
+            $table->string('name_kk');
+            $table->integer('o_specialty_id');
+            $table->integer('o_id');
         });
     }
 

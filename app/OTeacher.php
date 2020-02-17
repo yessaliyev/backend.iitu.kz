@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class OTeacher extends Model
 {
     protected $fillable = [
         'o_id',
-        'room_num',
-        'type'
+        'teacher_en',
+        'teacher_ru',
+        'teacher_kk'
     ];
 }

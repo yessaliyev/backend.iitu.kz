@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTimesTable extends Migration
+class CreateSubjectTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTimesTable extends Migration
      */
     public function up()
     {
-        Schema::create('times', function (Blueprint $table) {
+        Schema::create('subject_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->string('type_en');
+            $table->string('type_ru');
+            $table->string('type_kk');
             $table->integer('o_id');
         });
     }
@@ -29,6 +30,6 @@ class CreateTimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('times');
+        Schema::dropIfExists('subject_types');
     }
 }
