@@ -23,3 +23,6 @@ Route::post('/set-template','Api\TemplateController@setTemplate')->middleware('a
 Route::post('/get-template','Api\TemplateController@getTemplate')->middleware(['auth:api','auth.admin']);
 Route::post('/set-attendance','Api\AttendanceController@setAttendance')->middleware('auth:api');
 
+Route::post('/add-news','Api\NewsController@add')->middleware(['auth:api','auth.admin']);
+Route::get('get-news','Api\NewsController@get');
+

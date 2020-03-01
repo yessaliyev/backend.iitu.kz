@@ -45,6 +45,12 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+        if (Auth::attempt(['username' => $request->username,'password' => $request->password])) {
+            auth()->user()->tokens->each(function ($token,$key){ $token->delete(); });
+        }else {
+            return response(["message"=>'wrong password or username',"error" => true],'401');
+        }
+
         $http = new GuzzleHttp\Client;
 
         try {
@@ -69,14 +75,13 @@ class AuthController extends Controller
                 ]);
 
                 $user = json_decode((string) $user_data->getBody(), true);
-//                return $user;
+
                 return [
                     'token_type' => $outh['token_type'],
                     'expires_in' => $outh['expires_in'],
                     'access_token' => $outh['access_token'],
                     'refresh_token'=> $outh['refresh_token'],
-                    'username' => $user['email'],
-                    'name' => $user['name'],
+                    'username' => $user['username'],
                     'roles' => $user['roles']
                 ];
 
