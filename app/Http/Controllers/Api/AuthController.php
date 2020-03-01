@@ -69,7 +69,7 @@ class AuthController extends Controller
                 ]);
 
                 $user = json_decode((string) $user_data->getBody(), true);
-                return $user;
+//                return $user;
                 return [
                     'token_type' => $outh['token_type'],
                     'expires_in' => $outh['expires_in'],
