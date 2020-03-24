@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Teacher extends Model
 {
     //
 }

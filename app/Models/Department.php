@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Day extends Model
+class Department extends Model
 {
     protected $fillable = [
         'name_en',

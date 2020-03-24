@@ -1,15 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Specialty extends Model
+class Subject extends Model
 {
     protected $fillable = [
         'name_en',
         'name_ru',
         'name_kk',
-        'o_id'
+        'o_id',
     ];
 }
