@@ -91,6 +91,8 @@ class User extends Authenticatable
             'role' => 'required|string'
         ]);
 
+        Role::where('role', $request->role)->firstOrFail();
+
         switch ($request->role){
             case 'student':
                 throw_if(empty($request->group_id),new BadRequestHttpException('group_id not presented'));
