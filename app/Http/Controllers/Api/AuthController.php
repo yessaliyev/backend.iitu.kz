@@ -15,11 +15,11 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-//        $validate_data = $request->validate([
-//            'username'=>'required|unique:users',
-//            'password'=>'required|confirmed',
-//            'role' => 'required|string'
-//        ]);
+        $validate_data = $request->validate([
+            'username'=>'required|unique:users',
+            'password'=>'required|confirmed',
+            'role' => 'required|string'
+        ]);
 
 
         $user = User::create([
@@ -54,7 +54,7 @@ class AuthController extends Controller
         $http = new GuzzleHttp\Client;
 
         try {
-            $response = $http->post('http://dl.iitu.local/oauth/token', [
+            $response = $http->post(env('LOCAL_URL').'/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => env('GRANT_CLIENT_ID'),
@@ -67,7 +67,7 @@ class AuthController extends Controller
             $outh = json_decode((string) $response->getBody(), true);
 
             try {
-                $user_data = $http->get('http://dl.iitu.local/api/get-user', [
+                $user_data = $http->get(env('LOCAL_URL').'/api/get-user', [
                     'headers' => [
                         'Accept' => 'application/json',
                         'Authorization' => 'Bearer '.$outh['access_token'],
@@ -107,7 +107,7 @@ class AuthController extends Controller
         $request->validate(['refresh_token' => 'required']);
         $http = new GuzzleHttp\Client;
 
-        $response = $http->post('http://dl.iitu.local/oauth/token', [
+        $response = $http->post(env('LOCAL_URL').'/oauth/token', [
             'form_params' => [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $request->refresh_token,
