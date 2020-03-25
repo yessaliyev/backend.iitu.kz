@@ -19,7 +19,7 @@ class CreateSubjectTypesTable extends Migration
             $table->string('type_en');
             $table->string('type_ru');
             $table->string('type_kk');
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

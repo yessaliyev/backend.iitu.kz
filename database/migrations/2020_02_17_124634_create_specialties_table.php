@@ -20,7 +20,7 @@ class CreateSpecialtiesTable extends Migration
             $table->string('name_ru');
             $table->string('name_kk');
             $table->string('code')->nullable();
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

@@ -18,7 +18,7 @@ class CreateBlocksTable extends Migration
             $table->timestamps();
             $table->text('name');
             $table->integer('o_group_id');
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

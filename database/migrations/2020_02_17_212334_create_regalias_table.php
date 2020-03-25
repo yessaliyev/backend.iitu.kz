@@ -19,7 +19,7 @@ class CreateRegaliasTable extends Migration
             $table->string('regalia_en');
             $table->string('regalia_ru');
             $table->string('regalia_kk');
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

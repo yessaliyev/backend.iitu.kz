@@ -19,7 +19,7 @@ class CreateAppointmentsTable extends Migration
             $table->string('appointment_en');
             $table->string('appointment_ru');
             $table->string('appointment_kk');
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

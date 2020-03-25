@@ -19,7 +19,7 @@ class CreateOTeachersTable extends Migration
             $table->string('teacher_en');
             $table->string('teacher_ru');
             $table->string('teacher_kk');
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

@@ -18,7 +18,7 @@ class CreateTimesTable extends Migration
             $table->timestamps();
             $table->time('start_time');
             $table->time('end_time');
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

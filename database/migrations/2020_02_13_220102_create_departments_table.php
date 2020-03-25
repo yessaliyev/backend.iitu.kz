@@ -20,7 +20,7 @@ class CreateDepartmentsTable extends Migration
             $table->string('name_ru');
             $table->string('name_kk');
             $table->integer('room_id')->nullable();
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

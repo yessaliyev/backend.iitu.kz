@@ -18,7 +18,7 @@ class CreateRoomsTable extends Migration
             $table->timestamps();
             $table->text('room_num');
             $table->string('type')->nullable();
-            $table->integer('o_id');
+            $table->integer('o_id')->nullable();
         });
     }
 

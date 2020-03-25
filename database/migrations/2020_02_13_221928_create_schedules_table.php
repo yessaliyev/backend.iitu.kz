@@ -16,16 +16,15 @@ class CreateSchedulesTable extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->integer('o_teacher_id');
-            $table->integer('o_subject_id');
-            $table->integer('o_subject_type_id');
-            $table->integer('o_group_id');
-            $table->integer('o_room_id');
-            $table->integer('o_appointment_id');
-            $table->integer('o_regalia_id');
-            $table->integer('o_time_id');
-            $table->integer('o_day_id');
-            $table->integer('o_id');
+            $table->integer('teacher_id');
+            $table->integer('subject_id');
+            $table->integer('subject_type_id');
+            $table->integer('group_id');
+            $table->integer('room_id');
+            $table->integer('appointment_id');
+            $table->integer('regalia_id');
+            $table->integer('time_id');
+            $table->integer('day_id');
         });
     }
 
