@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use GuzzleHttp;
 
 class User extends Authenticatable
 {
@@ -106,6 +107,77 @@ class User extends Authenticatable
         }
 
         return true;
+    }
+
+    public static function getToken($request)
+    {
+        $http = new GuzzleHttp\Client;
+
+        try {
+            $response = $http->post(env('LOCAL_URL').'/oauth/token', [
+                'form_params' => [
+                    'grant_type' => 'password',
+                    'client_id' => env('GRANT_CLIENT_ID'),
+                    'client_secret' => env('GRANT_CLIENT_SECRET'),
+                    'username' => $request->username,
+                    'password' => $request->password,
+                ]
+            ]);
+
+            $outh = json_decode((string) $response->getBody(), true);
+
+            try {
+                $user_data = $http->get(env('LOCAL_URL').'/api/get-user', [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Authorization' => 'Bearer '.$outh['access_token'],
+                    ]
+                ]);
+
+                $user = json_decode((string) $user_data->getBody(), true);
+
+                return [
+                    'token_type' => $outh['token_type'],
+                    'expires_in' => $outh['expires_in'],
+                    'access_token' => $outh['access_token'],
+                    'refresh_token'=> $outh['refresh_token'],
+                    'username' => $user['username'],
+                    'roles' => $user['roles']
+                ];
+
+            }catch (GuzzleHttp\Exception\BadResponseException $e){
+
+                return response([
+                    'message' => $e->getMessage(),
+                    'status' => $e->getCode()
+                ]);
+
+            }
+
+        }catch (GuzzleHttp\Exception\BadResponseException $e){
+
+            return response([
+                'message' => $e->getMessage(),
+                'status' => $e->getCode()
+            ]);
+        }
+    }
+
+    public static function getRefreshToken($request)
+    {
+        $http = new GuzzleHttp\Client;
+
+        $response = $http->post(env('LOCAL_URL').'/oauth/token', [
+            'form_params' => [
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $request->refresh_token,
+                'client_id' => env('GRANT_CLIENT_ID'),
+                'client_secret' => env('GRANT_CLIENT_SECRET'),
+                'scope' => '',
+            ],
+        ]);
+
+        return json_decode((string) $response->getBody(), true);
     }
 
     public function findForPassport($username)
