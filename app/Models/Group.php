@@ -10,7 +10,7 @@ class Group extends Model
         'name_en',
         'name_ru',
         'name_kk',
-        'o_specialty_id',
+        'specialty_id',
         'o_id'
     ];
 }

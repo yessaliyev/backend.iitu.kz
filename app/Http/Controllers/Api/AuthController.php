@@ -12,30 +12,18 @@ use Auth;
 class AuthController extends Controller
 {
 
+    /**
+     * создает пользователя в зависимости от роля
+     * регистрировать может только админ
+     * @param Request $request
+     * @return Object User
+     */
 
     public function register(Request $request)
     {
-        $validate_data = $request->validate([
-            'username'=>'required|unique:users',
-            'password'=>'required|confirmed',
-            'role' => 'required|string'
-        ]);
-
-        $user = User::create([
-            'username' => $request->username,
-            'password' => bcrypt($request->password),
-        ]);
-
-        $role = Role::where('role',$request->role)->first();
-
-        if (empty($role)) return response(['error' => true,'msg'=>'role not found'],'404');
-
-        $user = User::find($user->id);
-
-        $user->roles()->attach($role->id);
-
-        return $user;
-
+        if (User::validation($request)) {
+            return User::createUser($request);
+        }
     }
 
     public function login(Request $request)

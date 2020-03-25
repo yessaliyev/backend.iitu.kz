@@ -39,7 +39,9 @@ class GroupController extends Controller
         if (!empty($request->name_ru)) $group->name_ru = $request->name_ru;
         if (!empty($request->name_en)) $group->name_en = $request->name_en;
 
-        if (!$group->save()) return response(['error' => true,'msg' => 'something wrong with saving on line. '.__LINE__],500);
+        if (!$group->save()) {
+            return response(['error' => true,'msg' => 'something wrong with saving on line. '.__LINE__],500);
+        }
 
         return response(['error' => false,'msg' => "OK!"]);
     }

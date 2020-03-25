@@ -33,6 +33,7 @@ class SpecialtyController extends Controller
         if (!empty($request->name_kk)) $department->name_kk = $request->name_kk;
         if (!empty($request->name_ru)) $department->name_ru = $request->name_ru;
         if (!empty($request->name_en)) $department->name_en = $request->name_en;
+        if (!empty($request->code)) $department->code = $request->code;
 
         if (!$spec->save()) return response(['error' => true,'msg' => 'something wrong with saving on line. '.__LINE__],500);
 

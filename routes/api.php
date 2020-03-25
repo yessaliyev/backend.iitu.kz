@@ -32,3 +32,10 @@ Route::post('/department/create','Api\DepartmentController@create')->middleware(
 Route::post('/department/update','Api\DepartmentController@update')->middleware(['auth:api','auth.admin']);
 Route::post('/department/get','Api\DepartmentController@get');
 
+Route::post('/specialty/create','Api\SpecialtyController@create')->middleware(['auth:api','auth.admin']);
+Route::post('/specialty/update','Api\SpecialtyController@update')->middleware(['auth:api','auth.admin']);
+Route::post('/specialty/get','Api\SpecialtyController@get');
+
+Route::post('/group/create','Api\GroupController@create')->middleware(['auth:api','auth.admin']);
+Route::post('/group/update','Api\GroupController@update')->middleware(['auth:api','auth.admin']);
+Route::post('/group/get','Api\GroupController@get');
