@@ -75,10 +75,11 @@ class User extends Authenticatable
 
     private static function saveAdditional(Array $additional,$user_id){
         foreach ($additional as $key => $value){
-            $additional = Additional::where('key', $key)->andWhere('user_id',$user_id)->first();
+            $additional = Additional::where('key', $key)->where('user_id',$user_id)->first();
             if (empty($additional)) $additional = new Additional();
             $additional->key = $key;
             $additional->value = $value;
+            $additional->user_id = $user_id;
             $additional->save();
         }
         return true;
