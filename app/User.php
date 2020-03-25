@@ -2,14 +2,15 @@
 
 namespace App;
 
+use App\Models\Department;
+use App\Models\Group;
+use App\Models\Role;
 use App\Models\Users\Additional;
 use App\Models\Users\Student;
 use App\Models\Users\Teacher;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use PhpParser\Node\Expr\Array_;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class User extends Authenticatable
@@ -92,14 +93,12 @@ class User extends Authenticatable
 
         switch ($request->role){
             case 'student':
-                if (empty($request->group_id)) {
-                    throw new BadRequestHttpException('group_id not presented');
-                }
+                throw_if(empty($request->group_id),new BadRequestHttpException('group_id not presented'));
+                $group = Group::findOrFail($request->group_id);
                 break;
             case 'teacher':
-                if (empty($request->department_id)) {
-                    throw new BadRequestHttpException('department_id not presented');
-                }
+                throw_if(empty($request->department_id),new BadRequestHttpException('department_id not presented'));
+                $department = Department::findOrFail($request->department_id);
                 break;
         }
 
