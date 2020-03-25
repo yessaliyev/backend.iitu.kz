@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Role;
+use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
 use GuzzleHttp;
@@ -21,14 +21,14 @@ class AuthController extends Controller
             'role' => 'required|string'
         ]);
 
-
         $user = User::create([
-           'username' => $request->username,
-           'password' => bcrypt($request->password),
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
         ]);
 
-
         $role = Role::where('role',$request->role)->first();
+
+        if (empty($role)) return response(['error' => true,'msg'=>'role not found'],'404');
 
         $user = User::find($user->id);
 
@@ -40,6 +40,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+
         $request->validate([
             'username' => 'required',
             'password' => 'required'

@@ -9,9 +9,9 @@ use App\News;
 class NewsController extends Controller
 {
     public function add(Request $request){
-        $request->validate(['title' => 'required','content' => 'required']);
+        $request->validate(['title' => 'required','text' => 'required']);
 
-        $news = News::firstOrCreate(['title' => $request->title,'content' => $request->content]);
+        $news = News::firstOrCreate(['title' => $request->title,'content' => $request->text]);
 
         $news->touch();
 

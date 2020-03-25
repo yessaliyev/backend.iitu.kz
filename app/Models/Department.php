@@ -10,6 +10,6 @@ class Department extends Model
         'name_en',
         'name_ru',
         'name_kk',
-        'o_id'
+        'room_id'
     ];
 }

@@ -14,15 +14,21 @@ use Illuminate\Http\Request;
 */
 Route::get('/get-user','Api\UserController@getUser')->middleware('auth:api');
 
-Route::post('/register','Api\AuthController@register');
-Route::post('/login','Api\AuthController@login');
-Route::post('/refresh-token','Api\AuthController@refreshToken');
+Route::post('/auth/register','Api\AuthController@register')->middleware(['auth:api','auth.admin']);
+Route::post('auth/login','Api\AuthController@login');
+Route::post('/auth/refresh-token','Api\AuthController@refreshToken');
 
 
-Route::post('/set-template','Api\TemplateController@setTemplate')->middleware('auth:api');
-Route::post('/get-template','Api\TemplateController@getTemplate')->middleware(['auth:api','auth.admin']);
-Route::post('/set-attendance','Api\AttendanceController@setAttendance')->middleware('auth:api');
+Route::post('/template/set','Api\TemplateController@set')->middleware('auth:api');
+Route::post('/template/get','Api\TemplateController@get')->middleware(['auth:api','auth.admin']);
+
+Route::post('/attendance/set','Api\AttendanceController@set')->middleware('auth:api');
+Route::post('/attendance/get','Api\AttendanceController@get')->middleware('auth:api');
 
 Route::post('/add-news','Api\NewsController@add')->middleware(['auth:api','auth.admin']);
 Route::get('get-news','Api\NewsController@get');
+
+Route::post('/department/create','Api\DepartmentController@create')->middleware(['auth:api','auth.admin']);
+Route::post('/department/update','Api\DepartmentController@update')->middleware(['auth:api','auth.admin']);
+Route::post('/department/get','Api\DepartmentController@get');
 
