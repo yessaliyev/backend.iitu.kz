@@ -2,20 +2,20 @@
 
 namespace App\Console\Commands;
 
-use App\Appointment;
-use App\Block;
-use App\Day;
-use App\Department;
-use App\Group;
-use App\OTeacher;
-use App\Profession;
-use App\Regalia;
-use App\Room;
-use App\Schedule;
-use App\Specialty;
-use App\Subject;
-use App\SubjectType;
-use App\Time;
+use App\Models\Appointment;
+use App\Models\Block;
+use App\Models\Day;
+use App\Models\Department;
+use App\Models\Group;
+use App\Models\OTeacher;
+use App\Models\Profession;
+use App\Models\Regalia;
+use App\Models\Room;
+use App\Models\Schedule;
+use App\Models\Specialty;
+use App\Models\Subject;
+use App\Models\SubjectType;
+use App\Models\Time;
 use Illuminate\Console\Command;
 use GuzzleHttp;
 
@@ -110,13 +110,13 @@ class CheckSchedule extends Command
 
                 foreach ($get_groups['result'] as $get_group){
 //                    if ($get_group['id'] != '191561') continue;
-                    $group = Group::firstOrCreate([
-                        'name_en' => $get_group['name_en'],
-                        'name_ru' => $get_group['name_ru'],
-                        'name_kk' => $get_group['name_kk'],
-                        'o_specialty_id' => $get_specialty['id'],
-                        'o_id' => $get_group['id']
-                    ]);
+//                    $group = Group::firstOrCreate([
+//                        'name_en' => $get_group['name_en'],
+//                        'name_ru' => $get_group['name_ru'],
+//                        'name_kk' => $get_group['name_kk'],
+//                        'o_specialty_id' => $get_specialty['id'],
+//                        'o_id' => $get_group['id']
+//                    ]);
 
                     $get_schedules = $http->get('http://schedule.iitu.kz/rest/user/get_timetable_block.php?block_id='.$get_group['id'],[]);
                     $get_schedules = json_decode((string) $get_schedules->getBody(), true);
@@ -139,6 +139,7 @@ class CheckSchedule extends Command
                         ]);
                     }
 
+                    exit;
                     foreach ($get_schedules['teachers'] as $key => $value){
                         $teacher = OTeacher::firstOrCreate([
                             'o_id' => $key,
