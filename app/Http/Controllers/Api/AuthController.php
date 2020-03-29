@@ -33,12 +33,13 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+
         if (Auth::attempt(['username' => $request->username,'password' => $request->password])) {
             auth()->user()->tokens->each(function ($token,$key){ $token->delete(); });
         }else {
             return response(["message"=>'wrong password or username',"error" => true],'401');
         }
-
+//        return "qwer";
         return User::getToken($request);
 
     }
