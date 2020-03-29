@@ -18,6 +18,7 @@ class CreateTeachersTable extends Migration
             $table->timestamps();
             $table->integer('user_id');
             $table->integer('department_id');
+            $table->integer('regalia_id');
         });
     }
 

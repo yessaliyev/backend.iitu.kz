@@ -39,3 +39,11 @@ Route::post('/specialty/get','Api\SpecialtyController@get');
 Route::post('/group/create','Api\GroupController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/group/update','Api\GroupController@update')->middleware(['auth:api','auth.admin']);
 Route::post('/group/get','Api\GroupController@get');
+
+Route::post('/subject/create','Api\SubjectController@create')->middleware(['auth:api','auth.admin']);
+Route::post('/subject/update','Api\SubjectController@update')->middleware(['auth:api','auth.admin']);
+Route::post('/subject/get','Api\SubjectController@get');
+
+Route::post('/schedule/create','Api\ScheduleController@create')->middleware(['auth:api','auth.admin']);
+Route::post('/schedule/update','Api\ScheduleController@update')->middleware(['auth:api','auth.admin']);
+Route::post('/schedule/get','Api\ScheduleController@get');
