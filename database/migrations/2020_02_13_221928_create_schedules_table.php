@@ -22,7 +22,6 @@ class CreateSchedulesTable extends Migration
             $table->integer('group_id');
             $table->integer('room_id');
             $table->integer('appointment_id');
-            $table->integer('regalia_id');
             $table->integer('time_id');
             $table->integer('day_id');
         });

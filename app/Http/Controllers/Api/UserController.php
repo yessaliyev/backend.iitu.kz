@@ -22,4 +22,12 @@ class UserController extends Controller
         ]);
 
     }
+
+    public function addRegalia(Request $request){
+
+    }
+
+    public function addAppointment(Request $request){
+
+    }
 }

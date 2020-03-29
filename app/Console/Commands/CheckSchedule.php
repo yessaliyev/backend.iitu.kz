@@ -121,42 +121,42 @@ class CheckSchedule extends Command
                     $get_schedules = $http->get('http://schedule.iitu.kz/rest/user/get_timetable_block.php?block_id='.$get_group['id'],[]);
                     $get_schedules = json_decode((string) $get_schedules->getBody(), true);
 
-                    foreach ($get_schedules['subjects'] as $key => $value){
-                        $subject = Subject::firstOrCreate([
-                            'o_id' => $key,
-                            'name_en' => $value['subject_en'],
-                            'name_ru' => $value['subject_ru'],
-                            'name_kk' => $value['subject_kk'],
-                        ]);
-                    }
+//                    foreach ($get_schedules['subjects'] as $key => $value){
+//                        $subject = Subject::firstOrCreate([
+//                            'o_id' => $key,
+//                            'name_en' => $value['subject_en'],
+//                            'name_ru' => $value['subject_ru'],
+//                            'name_kk' => $value['subject_kk'],
+//                        ]);
+//                    }
 
-                    foreach ($get_schedules['subject_types'] as $key => $value){
-                        $type = SubjectType::firstOrCreate([
-                            'o_id' => $key,
-                            'type_en' => $value['subject_type_en'],
-                            'type_ru' => $value['subject_type_ru'],
-                            'type_kk' => $value['subject_type_kk']
-                        ]);
-                    }
+//                    foreach ($get_schedules['subject_types'] as $key => $value){
+//                        $type = SubjectType::firstOrCreate([
+//                            'o_id' => $key,
+//                            'type_en' => $value['subject_type_en'],
+//                            'type_ru' => $value['subject_type_ru'],
+//                            'type_kk' => $value['subject_type_kk']
+//                        ]);
+//                    }
 
-                    exit;
-                    foreach ($get_schedules['teachers'] as $key => $value){
-                        $teacher = OTeacher::firstOrCreate([
-                            'o_id' => $key,
-                            'teacher_en' => $value['teacher_en'],
-                            'teacher_ru' => $value['teacher_ru'],
-                            'teacher_kk' => $value['teacher_kk'],
-                        ]);
-                    }
 
-                    foreach ($get_schedules['regalias'] as $key => $value){
-                        $regalia = Regalia::firstOrCreate([
-                            'o_id' => $key,
-                            'regalia_en' => $value['regalia_en'],
-                            'regalia_ru' => $value['regalia_ru'],
-                            'regalia_kk' => $value['regalia_kk'],
-                        ]);
-                    }
+//                    foreach ($get_schedules['teachers'] as $key => $value){
+//                        $teacher = OTeacher::firstOrCreate([
+//                            'o_id' => $key,
+//                            'teacher_en' => $value['teacher_en'],
+//                            'teacher_ru' => $value['teacher_ru'],
+//                            'teacher_kk' => $value['teacher_kk'],
+//                        ]);
+//                    }
+//
+//                    foreach ($get_schedules['regalias'] as $key => $value){
+//                        $regalia = Regalia::firstOrCreate([
+//                            'o_id' => $key,
+//                            'regalia_en' => $value['regalia_en'],
+//                            'regalia_ru' => $value['regalia_ru'],
+//                            'regalia_kk' => $value['regalia_kk'],
+//                        ]);
+//                    }
 
                     foreach ($get_schedules['appointments'] as $key => $value){
                         $appointment = Appointment::firstOrCreate([
@@ -167,45 +167,45 @@ class CheckSchedule extends Command
                         ]);
                     }
 
-                    foreach ($get_schedules['bundles'] as $key => $value){
-                        $room = Room::firstOrCreate([
-                            'o_id' => $key,
-                            'room_num' => json_encode($value,JSON_UNESCAPED_UNICODE),
-                        ]);
-                    }
-
-                    foreach ($get_schedules['blocks'] as $key => $value){
-                        $block = Block::firstOrCreate([
-                            'o_id' => $key,
-                            'name' => $value['name'],
-                            'o_group_id' => $get_group['id'],
-                        ]);
-                    }
-
-                    if (empty($get_schedules['timetable'])){
-                        var_dump([
-                            'course' => $get_course,
-                            'group' => $get_group,
-
-                        ]);
-                        continue;
-                    }
-                    foreach ($get_schedules['timetable'] as $key => $one_day){
-                        foreach ($one_day as $time_id => $item){
-                            $schedule = Schedule::firstOrCreate([
-                                'o_id'=> $item[0]['id'],
-                                'o_subject_id' => $item[0]['subject_id'],
-                                'o_subject_type_id'=>$item[0]['subject_type_id'],
-                                'o_group_id' => $item[0]['block_id'],
-                                'o_teacher_id' => $item[0]['teacher_id'],
-                                'o_regalia_id' => $item[0]['regalia_id'],
-                                'o_appointment_id' => $item[0]['appointment_id'],
-                                'o_room_id' => $item[0]['bundle_id'],
-                                'o_day_id' => $item[0]['day_id'],
-                                'o_time_id' => $item[0]['time_id'],
-                            ]);
-                        }
-                    }
+//                    foreach ($get_schedules['bundles'] as $key => $value){
+//                        $room = Room::firstOrCreate([
+//                            'o_id' => $key,
+//                            'room_num' => json_encode($value,JSON_UNESCAPED_UNICODE),
+//                        ]);
+//                    }
+//
+//                    foreach ($get_schedules['blocks'] as $key => $value){
+//                        $block = Block::firstOrCreate([
+//                            'o_id' => $key,
+//                            'name' => $value['name'],
+//                            'o_group_id' => $get_group['id'],
+//                        ]);
+//                    }
+//
+//                    if (empty($get_schedules['timetable'])){
+//                        var_dump([
+//                            'course' => $get_course,
+//                            'group' => $get_group,
+//
+//                        ]);
+//                        continue;
+//                    }
+//                    foreach ($get_schedules['timetable'] as $key => $one_day){
+//                        foreach ($one_day as $time_id => $item){
+//                            $schedule = Schedule::firstOrCreate([
+//                                'o_id'=> $item[0]['id'],
+//                                'o_subject_id' => $item[0]['subject_id'],
+//                                'o_subject_type_id'=>$item[0]['subject_type_id'],
+//                                'o_group_id' => $item[0]['block_id'],
+//                                'o_teacher_id' => $item[0]['teacher_id'],
+//                                'o_regalia_id' => $item[0]['regalia_id'],
+//                                'o_appointment_id' => $item[0]['appointment_id'],
+//                                'o_room_id' => $item[0]['bundle_id'],
+//                                'o_day_id' => $item[0]['day_id'],
+//                                'o_time_id' => $item[0]['time_id'],
+//                            ]);
+//                        }
+//                    }
                 }
 
             }
