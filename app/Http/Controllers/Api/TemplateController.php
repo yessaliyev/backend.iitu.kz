@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\SentTemplate;
 use Illuminate\Http\Request;
-use App\Template;
+use App\Models\Templates\Template;
 
 class TemplateController extends Controller
 {
-    public function setTemplate(Request $request)
+    public function set(Request $request)
     {
         $request->validate([
             'user_id'=>'required',
@@ -27,7 +27,7 @@ class TemplateController extends Controller
         return $template;
     }
 
-    public function getTemplate(Request $request)
+    public function get(Request $request)
     {
         $request->validate(['room_id' => 'required']);
 

@@ -151,6 +151,7 @@ class User extends Authenticatable
                     'message' => $e->getMessage(),
                     'status' => $e->getCode()
                 ]);
+
             }
 
         }catch (GuzzleHttp\Exception\BadResponseException $e){
