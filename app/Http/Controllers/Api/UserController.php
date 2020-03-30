@@ -24,14 +24,18 @@ class UserController extends Controller
 
     }
 
-    public function addAppointment(Request $request){
+    public function createAppointment(Request $request){
         $request->validate([
             'appointment_en' => 'required',
             'appointment_ru' => 'required',
             'appointment_kk' => 'required'
         ]);
 
-        return Appointment::
+        return Appointment::firstOrCreate([
+            "appointment_en" => $request->appointment_en,
+            "appointment_ru" => $request->appointment_ru,
+            "appointment_kk" => $request->appointment_kk,
+        ]);
 
     }
 }

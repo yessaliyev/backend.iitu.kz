@@ -47,3 +47,5 @@ Route::post('/subject/get','Api\SubjectController@get');
 Route::post('/schedule/create','Api\ScheduleController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/schedule/update','Api\ScheduleController@update')->middleware(['auth:api','auth.admin']);
 Route::post('/schedule/get','Api\ScheduleController@get');
+
+Route::post('/user/create-appointment','Api\UserController@createAppointment')->middleware(['auth:api','auth.admin']);
