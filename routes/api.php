@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/auth/validate-token', function () {
+    return ['data' => 'Token is valid'];
+})->middleware('auth:api');
+
 Route::get('/get-user','Api\UserController@getUser')->middleware('auth:api');
 
 Route::post('/auth/register','Api\AuthController@register')->middleware(['auth:api','auth.admin']);
@@ -26,7 +31,7 @@ Route::post('/attendance/set','Api\AttendanceController@set')->middleware('auth:
 Route::post('/attendance/get','Api\AttendanceController@get')->middleware('auth:api');
 
 Route::post('/add-news','Api\NewsController@add')->middleware(['auth:api','auth.admin']);
-Route::get('get-news','Api\NewsController@get');
+Route::get('/news/get-news','Api\NewsController@get');
 
 Route::post('/department/create','Api\DepartmentController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/department/update','Api\DepartmentController@update')->middleware(['auth:api','auth.admin']);

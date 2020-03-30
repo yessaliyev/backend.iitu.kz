@@ -47,4 +47,9 @@ class AuthController extends Controller
         $request->validate(['refresh_token' => 'required']);
         return User::getRefreshToken($request);
     }
+
+    public function isValidToken(Request $request){
+        $request->validate(['access_token' => 'required|string']);
+
+    }
 }
