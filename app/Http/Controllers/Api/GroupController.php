@@ -11,11 +11,13 @@ class GroupController extends Controller
 {
     public function create(Request $request)
     {
+
         $request->validate([
             'name_kk' => 'required',
             'name_ru' => 'required',
             'name_en' => 'required',
             'specialty_id' => 'required',
+            'course' => 'required'
         ]);
 
         $spec = Specialty::findOrFail($request->specialty_id);
@@ -25,6 +27,7 @@ class GroupController extends Controller
             'name_ru' => $request->name_ru,
             'name_kk' => $request->name_kk,
             'specialty_id' => $spec->id,
+            'course' => $request->course
         ]);
 
         return response(['error' => false,'msg' => "OK!"]);
@@ -49,6 +52,12 @@ class GroupController extends Controller
     public function get(Request $request)
     {
 
+    }
+
+    public function getAll(Request $request)
+    {
+       $request->validate(['course' => 'required|integer']);
+       return Group::where('course',$request->course)->get();
     }
 
     public function delete(Request $request)

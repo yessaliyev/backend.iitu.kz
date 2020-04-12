@@ -69,8 +69,8 @@ class User extends Authenticatable
             case 'teacher':
                 $regalia = Regalia::firstOrCreate([
                     'regalia_en' => $request->regalia['regalia_en'],
-                    'regalia_ru' => $request->regalia['regalia_ru'],
-                    'regalia_kk' => $request->regalia['regalia_kk'],
+//                    'regalia_ru' => $request->regalia['regalia_ru'],
+//                    'regalia_kk' => $request->regalia['regalia_kk'],
                 ]);
 
                 Teacher::firstOrCreate([
@@ -141,7 +141,7 @@ class User extends Authenticatable
             $outh = json_decode((string) $response->getBody(), true);
 
             try {
-                $user_data = $http->get(env('LOCAL_URL').'/api/get-user', [
+                $user_data = $http->get(env('LOCAL_URL').'/api/user/get', [
                     'headers' => [
                         'Accept' => 'application/json',
                         'Authorization' => 'Bearer '.$outh['access_token'],
@@ -149,12 +149,12 @@ class User extends Authenticatable
                 ]);
 
                 $user = json_decode((string) $user_data->getBody(), true);
-
                 return [
                     'token_type' => $outh['token_type'],
                     'expires_in' => $outh['expires_in'],
                     'access_token' => $outh['access_token'],
                     'refresh_token'=> $outh['refresh_token'],
+                    'user_id' => $user['id'],
                     'username' => $user['username'],
                     'roles' => $user['roles']
                 ];

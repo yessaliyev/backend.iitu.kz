@@ -20,6 +20,7 @@ class CreateGroupsTable extends Migration
             $table->string('name_ru');
             $table->string('name_kk');
             $table->integer('specialty_id');
+            $table->integer("course");
             $table->integer('o_id')->nullable();
         });
     }

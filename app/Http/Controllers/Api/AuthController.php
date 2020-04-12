@@ -50,6 +50,7 @@ class AuthController extends Controller
 
     public function isValidToken(Request $request){
         $request->validate(['access_token' => 'required|string']);
-
     }
+
+
 }

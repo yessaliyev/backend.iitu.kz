@@ -16,9 +16,9 @@ class CreateRegaliasTable extends Migration
         Schema::create('regalias', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('regalia_en');
-            $table->string('regalia_ru');
-            $table->string('regalia_kk');
+            $table->string('regalia_en')->nullable();
+            $table->string('regalia_ru')->nullable();
+            $table->string('regalia_kk')->nullable();
             $table->integer('o_id')->nullable();
         });
     }

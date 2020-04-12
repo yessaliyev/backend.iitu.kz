@@ -115,29 +115,30 @@ class CheckSchedule extends Command
 //                        'name_ru' => $get_group['name_ru'],
 //                        'name_kk' => $get_group['name_kk'],
 //                        'o_specialty_id' => $get_specialty['id'],
-//                        'o_id' => $get_group['id']
+//                        'o_id' => $get_group['id'],
+//                        'course' => $get_course
 //                    ]);
 
                     $get_schedules = $http->get('http://schedule.iitu.kz/rest/user/get_timetable_block.php?block_id='.$get_group['id'],[]);
                     $get_schedules = json_decode((string) $get_schedules->getBody(), true);
 
-//                    foreach ($get_schedules['subjects'] as $key => $value){
-//                        $subject = Subject::firstOrCreate([
-//                            'o_id' => $key,
-//                            'name_en' => $value['subject_en'],
-//                            'name_ru' => $value['subject_ru'],
-//                            'name_kk' => $value['subject_kk'],
-//                        ]);
-//                    }
+                    foreach ($get_schedules['subjects'] as $key => $value){
+                        $subject = Subject::firstOrCreate([
+                            'o_id' => $key,
+                            'name_en' => $value['subject_en'],
+                            'name_ru' => $value['subject_ru'],
+                            'name_kk' => $value['subject_kk'],
+                        ]);
+                    }
 
-//                    foreach ($get_schedules['subject_types'] as $key => $value){
-//                        $type = SubjectType::firstOrCreate([
-//                            'o_id' => $key,
-//                            'type_en' => $value['subject_type_en'],
-//                            'type_ru' => $value['subject_type_ru'],
-//                            'type_kk' => $value['subject_type_kk']
-//                        ]);
-//                    }
+                    foreach ($get_schedules['subject_types'] as $key => $value){
+                        $type = SubjectType::firstOrCreate([
+                            'o_id' => $key,
+                            'type_en' => $value['subject_type_en'],
+                            'type_ru' => $value['subject_type_ru'],
+                            'type_kk' => $value['subject_type_kk']
+                        ]);
+                    }
 
 
 //                    foreach ($get_schedules['teachers'] as $key => $value){

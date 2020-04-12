@@ -11,6 +11,7 @@ class Group extends Model
         'name_ru',
         'name_kk',
         'specialty_id',
-        'o_id'
+        'o_id',
+        'course'
     ];
 }

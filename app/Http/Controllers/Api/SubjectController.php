@@ -44,7 +44,7 @@ class SubjectController extends Controller
 
     public function get(Request $request)
     {
-
+        return Subject::all();
     }
 
     public function delete(Request $request)

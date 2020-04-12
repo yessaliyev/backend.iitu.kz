@@ -36,6 +36,11 @@ class DepartmentController extends Controller
         return Department::find($request->department_id);
     }
 
+    public function getAll(Request $request)
+    {
+        return Department::all();
+    }
+
     public function update(Request $request)
     {
         $request->validate(['department_id' => 'required']);

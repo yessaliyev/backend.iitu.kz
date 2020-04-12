@@ -13,11 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/auth/validate-token', function () {
+Route::post('/auth/validate-token', function () {
     return ['data' => 'Token is valid'];
 })->middleware('auth:api');
 
-Route::get('/get-user','Api\UserController@getUser')->middleware('auth:api');
+Route::get('/user/get','Api\UserController@get')->middleware('auth:api');
+Route::get('/user/get-roles','Api\UserController@getRoles');
 
 Route::post('/auth/register','Api\AuthController@register')->middleware(['auth:api','auth.admin']);
 Route::post('auth/login','Api\AuthController@login');
@@ -31,11 +32,12 @@ Route::post('/attendance/set','Api\AttendanceController@set')->middleware('auth:
 Route::post('/attendance/get','Api\AttendanceController@get')->middleware('auth:api');
 
 Route::post('/add-news','Api\NewsController@add')->middleware(['auth:api','auth.admin']);
-Route::get('/news/get-news','Api\NewsController@get');
+Route::get('/news/get','Api\NewsController@get');
 
 Route::post('/department/create','Api\DepartmentController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/department/update','Api\DepartmentController@update')->middleware(['auth:api','auth.admin']);
-Route::post('/department/get','Api\DepartmentController@get');
+Route::get('/department/get','Api\DepartmentController@get');
+Route::get('/department/get-all','Api\DepartmentController@getAll');
 
 Route::post('/specialty/create','Api\SpecialtyController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/specialty/update','Api\SpecialtyController@update')->middleware(['auth:api','auth.admin']);
@@ -43,11 +45,13 @@ Route::post('/specialty/get','Api\SpecialtyController@get');
 
 Route::post('/group/create','Api\GroupController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/group/update','Api\GroupController@update')->middleware(['auth:api','auth.admin']);
-Route::post('/group/get','Api\GroupController@get');
+Route::get('/group/get','Api\GroupController@get');
+Route::get('/group/get-all','Api\GroupController@getAll');
+
 
 Route::post('/subject/create','Api\SubjectController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/subject/update','Api\SubjectController@update')->middleware(['auth:api','auth.admin']);
-Route::post('/subject/get','Api\SubjectController@get');
+Route::get('/subject/get','Api\SubjectController@get')->middleware('auth:api');
 
 Route::post('/schedule/create','Api\ScheduleController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/schedule/update','Api\ScheduleController@update')->middleware(['auth:api','auth.admin']);
