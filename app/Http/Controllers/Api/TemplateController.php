@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\SentTemplate;
+use App\Models\Templates\SentTemplate;
 use Illuminate\Http\Request;
-use App\Template;
+use App\Models\Templates\Template;
 
 class TemplateController extends Controller
 {

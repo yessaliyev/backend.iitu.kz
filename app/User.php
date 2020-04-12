@@ -4,7 +4,6 @@ namespace App;
 
 use App\Models\Department;
 use App\Models\Group;
-use App\Models\Regalia;
 use App\Models\Role;
 use App\Models\Users\Additional;
 use App\Models\Users\Student;
@@ -79,7 +78,6 @@ class User extends Authenticatable
                     'regalia_id' => $regalia->id
                 ]);
 
-
                 if (!empty($request->additional_data)) self::saveAdditional($request->additional_data,$user->id);
                 break;
         }
@@ -115,7 +113,6 @@ class User extends Authenticatable
                 break;
             case 'teacher':
                 throw_if(empty($request->department_id),new BadRequestHttpException('department_id not presented'));
-                throw_if(empty($request->regalia || !is_array($request->regalia)), new BadRequestHttpException('regalia not presented or is not an array'));
                 $department = Department::findOrFail($request->department_id);
                 break;
         }
