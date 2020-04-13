@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\AddSubjectTypes;
 use App\Console\Commands\CreateRoles;
 use App\Console\Commands\SetDefaultTime;
+use App\Console\Commands\Upload;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
         CreateRoles::class,
         SetDefaultTime::class,
         AddSubjectTypes::class,
+        Upload::class,
     ];
 
     /**
