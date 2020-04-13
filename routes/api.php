@@ -58,3 +58,6 @@ Route::post('/schedule/update','Api\ScheduleController@update')->middleware(['au
 Route::post('/schedule/get','Api\ScheduleController@get');
 
 Route::post('/user/create-appointment','Api\UserController@createAppointment')->middleware(['auth:api','auth.admin']);
+
+Route::post('/file/upload','Api\FileController@upload')->middleware(['auth:api','auth.admin']);
+
