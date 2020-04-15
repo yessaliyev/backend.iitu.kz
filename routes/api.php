@@ -23,6 +23,7 @@ Route::get('/user/get-roles','Api\UserController@getRoles');
 Route::post('/auth/register','Api\AuthController@register')->middleware(['auth:api','auth.admin']);
 Route::post('auth/login','Api\AuthController@login');
 Route::post('/auth/refresh-token','Api\AuthController@refreshToken');
+Route::post('/auth/logout','Api\AuthController@logout')->middleware('auth:api');
 
 
 Route::post('/template/set','Api\TemplateController@set')->middleware('auth:api');

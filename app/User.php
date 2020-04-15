@@ -208,4 +208,8 @@ class User extends Authenticatable
         return null !== $this->roles()->where('role', $role)->first();
     }
 
+    public function AauthAcessToken(){
+        return $this->hasMany('\App\Models\OauthAccessToken');
+    }
+
 }

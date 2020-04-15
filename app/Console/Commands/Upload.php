@@ -41,6 +41,7 @@ class Upload extends Command
         $task = Task::find($this->argument('task_id'));
         if (empty($task)) $this->error('Something went wrong!');
 
+        
 
     }
 }

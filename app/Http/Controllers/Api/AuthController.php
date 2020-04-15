@@ -52,5 +52,9 @@ class AuthController extends Controller
         $request->validate(['access_token' => 'required|string']);
     }
 
+    public function logout(){
+        auth()->user()->tokens->each(function ($token,$key){ $token->delete(); });
+        return response(['logout' => true]);
+    }
 
 }

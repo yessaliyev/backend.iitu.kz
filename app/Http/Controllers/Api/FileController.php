@@ -32,7 +32,6 @@ class FileController extends Controller
 
         chdir(base_path());
         $v = exec("php artisan command:upload ". $task->id ." > /dev/null &", $output, $return);
-//        $a = Artisan::call('command:upload',['task_id' => $task->id]);
-        return response(['1' => $output,'2'=>$return]);
+        return response(['task_id' => $task->id]);
     }
 }
