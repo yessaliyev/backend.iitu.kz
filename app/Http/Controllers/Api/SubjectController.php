@@ -15,14 +15,12 @@ class SubjectController extends Controller
             'name_kk' => 'required',
             'name_ru' => 'required',
             'name_en' => 'required',
-            'o_id' => 'required',
         ]);
 
         $subject = Subject::firstOrCreate([
             'name_en' => $request->name_en,
             'name_ru' => $request->name_ru,
             'name_kk' => $request->name_kk,
-            'o_id' => $request->o_id,
         ]);
 
         return response(['error' => false,'msg' => "OK!"]);
