@@ -12,4 +12,8 @@ class Subject extends Model
         'name_kk',
         'o_id',
     ];
+
+    public function groups(){
+        return $this->belongsToMany('App\Models\Group','schedules');
+    }
 }

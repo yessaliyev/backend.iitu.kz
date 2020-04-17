@@ -212,4 +212,8 @@ class User extends Authenticatable
         return $this->hasMany('\App\Models\OauthAccessToken');
     }
 
+    public function student(){
+        return $this->hasOne('\App\Models\Users\Student','user_id','id');
+    }
+
 }

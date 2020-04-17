@@ -14,4 +14,8 @@ class Group extends Model
         'o_id',
         'course'
     ];
+
+    public function subjects(){
+        return $this->belongsToMany('App\Models\Subject','schedules');
+    }
 }

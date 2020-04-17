@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Auth;
 
 class SubjectController extends Controller
 {
@@ -44,7 +45,7 @@ class SubjectController extends Controller
 
     public function get(Request $request)
     {
-        return Subject::all();
+         return Auth::user()->student->group->subjects;
     }
 
     public function delete(Request $request)
