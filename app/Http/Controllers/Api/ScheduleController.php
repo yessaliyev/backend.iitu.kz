@@ -21,15 +21,15 @@ class ScheduleController extends Controller
     {
         $request->validate(['group_id' => 'required']);
         return DB::table('schedules')
-            ->leftJoin('teachers', 'schedules.teacher_id', '=', 'teachers.id')
-            ->leftJoin('subjects', 'schedules.subject_id', '=', 'subjects.id')
-            ->leftJoin('subject_types', 'schedules.subject_type_id', '=', 'subject_types.id')
-            ->leftJoin('groups', 'schedules.group_id', '=', 'group_id')
-            ->leftJoin('rooms', 'schedules.room_id', '=', 'rooms.id')
-            ->leftJoin('appointments', 'schedules.appointment_id', '=', 'appointments.id')
-            ->leftJoin('times', 'schedules.time_id', '=', 'times.id')
-            ->leftJoin('days', 'schedules.day_id', '=', 'days.id')
-            ->where('schedules.group_id','=',$request->group_id)
+            ->leftJoin('teachers', 'schedules.o_teacher_id', '=', 'teachers.id')
+            ->leftJoin('subjects', 'schedules.o_subject_id', '=', 'subjects.id')
+            ->leftJoin('subject_types', 'schedules.o_subject_type_id', '=', 'subject_types.id')
+            ->leftJoin('groups', 'schedules.o_group_id', '=', 'groups.id')
+            ->leftJoin('rooms', 'schedules.o_room_id', '=', 'rooms.id')
+            ->leftJoin('appointments', 'schedules.o_appointment_id', '=', 'appointments.id')
+            ->leftJoin('times', 'schedules.o_time_id', '=', 'times.id')
+            ->leftJoin('days', 'schedules.o_day_id', '=', 'days.id')
+            ->where('schedules.o_group_id','=',$request->group_id)
 
             ->get();
     }

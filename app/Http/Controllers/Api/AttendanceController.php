@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Attendance;
+use App\Models\Attendance;
 use App\Http\Controllers\Controller;
-use App\SentTemplate;
+use App\Models\Templates\SentTemplate;
 use Illuminate\Http\Request;
 use App\User;
 
 class AttendanceController extends Controller
 {
-    public function setAttendance(Request $request)
+    public function set(Request $request)
     {
         $validate_data = $request->validate([
            'room_id'=>'required',
