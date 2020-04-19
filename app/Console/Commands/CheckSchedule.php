@@ -150,14 +150,14 @@ class CheckSchedule extends Command
 //                        ]);
 //                    }
 //
-//                    foreach ($get_schedules['regalias'] as $key => $value){
-//                        $regalia = Regalia::firstOrCreate([
-//                            'o_id' => $key,
-//                            'regalia_en' => $value['regalia_en'],
-//                            'regalia_ru' => $value['regalia_ru'],
-//                            'regalia_kk' => $value['regalia_kk'],
-//                        ]);
-//                    }
+                    foreach ($get_schedules['regalias'] as $key => $value){
+                        $regalia = Regalia::firstOrCreate([
+                            'o_id' => $key,
+                            'regalia_en' => $value['regalia_en'],
+                            'regalia_ru' => $value['regalia_ru'],
+                            'regalia_kk' => $value['regalia_kk'],
+                        ]);
+                    }
 
                     foreach ($get_schedules['appointments'] as $key => $value){
                         $appointment = Appointment::firstOrCreate([

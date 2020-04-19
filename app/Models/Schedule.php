@@ -32,7 +32,10 @@ class Schedule extends Model
             'time_id'          => 'required|exists:times,id'
         ]);
 
-        $schedule = Schedule::where('group_id',$request->group_id)->where('room_id', $request->room_id)->count();
+        $schedule = Schedule::where('group_id',$request->group_id)
+            ->where('room_id', $request->room_id)
+            ->where('time_id', $request->time_id)
+            ->count();
 
         throw_if($schedule > 0, new HttpException(422,'already exists'));
 

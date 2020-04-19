@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Department;
 use App\Models\Group;
+use App\Models\Regalia;
 use App\Models\Role;
 use App\Models\Users\Additional;
 use App\Models\Users\Student;

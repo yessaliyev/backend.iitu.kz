@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
+use App\Models\Week;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -55,5 +56,19 @@ class SubjectController extends Controller
 
     public function addType(Request $request){
 
+    }
+
+    public function getWeeks(){
+        $res = [];
+
+        foreach (Week::all() as $week){
+            $res[] = [
+                'id' => $week->id,
+                'start' => date('d-M', strtotime($week->start)),
+                'end' => date('d-M', strtotime($week->end)),
+                'week_num' => $week->week_num
+            ];
+        }
+        return $res;
     }
 }

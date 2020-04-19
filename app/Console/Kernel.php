@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\AddSubjectTypes;
 use App\Console\Commands\CreateRoles;
+use App\Console\Commands\CreateWeeks;
 use App\Console\Commands\SetDefaultTime;
 use App\Console\Commands\Upload;
 use Illuminate\Console\Scheduling\Schedule;
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
         SetDefaultTime::class,
         AddSubjectTypes::class,
         Upload::class,
+        CreateWeeks::class
     ];
 
     /**
