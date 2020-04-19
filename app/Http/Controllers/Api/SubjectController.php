@@ -16,7 +16,6 @@ class SubjectController extends Controller
             'name_kk' => 'required',
             'name_ru' => 'required',
             'name_en' => 'required',
-            ''
         ]);
 
         $subject = Subject::firstOrCreate([
