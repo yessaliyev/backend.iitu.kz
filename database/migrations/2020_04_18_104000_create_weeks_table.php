@@ -17,8 +17,8 @@ class CreateWeeksTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('week_num');
-            $table->string('start');
-            $table->string('end');
+            $table->date('start');
+            $table->date('end');
             $table->integer('status');
         });
     }

@@ -10,5 +10,5 @@ class Week extends Model
     const MIDTERM_WEEk = 2;
     const ENDTERM_WEEK = 3;
 
-    protected $fillable = ['week_num','start','end','status'];
+    protected $fillable = ['week_num','start','end','status','test'];
 }

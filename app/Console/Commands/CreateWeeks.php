@@ -39,18 +39,21 @@ class CreateWeeks extends Command
     public function handle()
     {
         $start = $this->argument('start_day');
-        for ($i = 0; $i<14; $i++){
+//        for ($i = 0; $i<14; $i++){
+//
+//            $end = date('Y-m-d', strtotime($start. ' + 7 days'));
+//            $interval = json_encode([$start,$end],JSON_UNESCAPED_UNICODE);
+//
+//            Week::firstOrCreate([
+//                'start' => $start,
+//                'end' => $end,
+//                'week_num' => $i+1,
+//                'status' => Week::DEFAULT_WEEK
+//            ]);
+//            $start = date('Y-m-d', strtotime($end. ' + 1 days'));
+//
+//        }
 
-            $end = date('d-m-Y', strtotime($start. ' + 7 days'));
-            $interval = json_encode([$start,$end],JSON_UNESCAPED_UNICODE);
-            Week::firstOrCreate([
-                'start' => $start,
-                'end' => $end,
-                'week_num' => $i+1,
-                'status' => Week::DEFAULT_WEEK
-            ]);
-            $start = date('d-m-Y', strtotime($end. ' + 1 days'));
 
-        }
     }
 }

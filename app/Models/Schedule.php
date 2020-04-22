@@ -7,6 +7,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Schedule extends Model
 {
+    const TAKE_ATTENDANCE = 1;
     protected $fillable = [
         'subject_id',
         'subject_type_id',

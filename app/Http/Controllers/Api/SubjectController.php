@@ -57,7 +57,7 @@ class SubjectController extends Controller
 
     }
 
-    public function getWeeks(){
+    public function getStudentWeeks(){
         $res = [];
 
         foreach (Week::all() as $week){
@@ -70,4 +70,24 @@ class SubjectController extends Controller
         }
         return $res;
     }
+
+    public function getTeacherWeeks(){
+        $res = [];
+
+        foreach (Week::all() as $week){
+            $res[] = [
+                'id' => $week->id,
+                'start' => date('d-M', strtotime($week->start)),
+                'end' => date('d-M', strtotime($week->end)),
+                'week_num' => $week->week_num
+            ];
+        }
+        return $res;
+    }
+
+
+    public function getAttendance(Request $request){
+        dd(Subject::attendance($request->group_id,$request->subject_id));
+    }
+
 }
