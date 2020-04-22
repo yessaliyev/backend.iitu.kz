@@ -87,7 +87,8 @@ class SubjectController extends Controller
 
 
     public function getAttendance(Request $request){
-        dd(Subject::attendance($request->group_id,$request->subject_id));
+        $request->validate(['group_id' => 'required','subject_id' => 'required']);
+        return Subject::attendance($request->group_id,$request->subject_id);
     }
 
 }

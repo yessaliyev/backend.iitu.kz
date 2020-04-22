@@ -45,8 +45,7 @@ class Schedule extends Model
     }
 
     public static function create($request){
-
-        return self::firstOrCreate([
+        $schedule = self::firstOrCreate([
             'subject_id' => $request->subject_id,
             'subject_type_id' => $request->subject_type_id,
             'group_id' => $request->group_id,
@@ -56,5 +55,13 @@ class Schedule extends Model
             'day_id' => $request->day_id,
             'time_id' => $request->time_id
         ]);
+
+        foreach (Week::all() as &$item){
+            $schedule->weeks()->attach($item->id);
+        }
+    }
+
+    public function weeks(){
+        return $this->belongsToMany('App\Models\Schedule','schedules_weeks','schedules_id','weeks_id');
     }
 }
