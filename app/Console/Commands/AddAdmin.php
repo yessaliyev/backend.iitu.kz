@@ -39,18 +39,13 @@ class AddAdmin extends Command
      */
     public function handle()
     {
-        $user = User::create([
-            'username' => $this->argument('username'),
-            'password' => bcrypt($this->argument('password')),
-        ]);
-
-
         $role = Role::firstOrCreate(['role'=>'admin']);
 
-        $user = User::find($user->id);
+        return User::create([
+            'username' => $this->argument('username'),
+            'password' => bcrypt($this->argument('password')),
+            'role_id' =>  $role->id
+        ]);
 
-        $user->roles()->attach($role->id);
-
-        return $user;
     }
 }

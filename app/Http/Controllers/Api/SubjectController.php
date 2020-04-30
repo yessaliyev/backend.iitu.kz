@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lesson;
 use App\Models\Subject;
 use App\Models\Week;
 use Illuminate\Http\Request;
@@ -45,7 +46,15 @@ class SubjectController extends Controller
 
     public function get(Request $request)
     {
-         return Auth::user()->student->group->subjects;
+
+        if (Auth::user()->roles[0]->role === 'student')
+            return Auth::user()->student->group->subjects;
+
+        if (Auth::user()->roles[0]->role === 'teacher')
+            return Auth::user()->teacher->subjects()->distinct()->get();
+
+
+        return false;
     }
 
     public function delete(Request $request)
@@ -89,6 +98,19 @@ class SubjectController extends Controller
     public function getAttendance(Request $request){
         $request->validate(['group_id' => 'required','subject_id' => 'required']);
         return Subject::attendance($request->group_id,$request->subject_id);
+    }
+
+    public function createLesson(Request $request){
+        $request->validate([
+            'subject_id' => 'required',
+            'teacher_id' => 'required',
+            'subject_type_id' => 'required',
+            'group_id' => 'required',
+            'date' => 'required',
+            'room_id' => 'required',
+        ]);
+
+        return Lesson::firstOrCreate($request->all());
     }
 
 }

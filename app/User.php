@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'password','username',
+        'password','username','role_id'
     ];
 
     /**
@@ -48,18 +48,15 @@ class User extends Authenticatable
 
     public static function createUser($request)
     {
-        $user = User::create([
-            'username' => $request->username,
-            'password' => bcrypt($request->password),
-        ]);
-
         $role = Role::where('role',$request->role)->first();
 
         if (empty($role)) return response(['error' => true,'msg'=>'role not found'],'404');
 
-        $user = User::find($user->id);
-
-        $user->roles()->attach($role->id);
+        $user = User::create([
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'role_id' => $role->id
+        ]);
 
         switch ($request->role){
             case 'student':
@@ -154,7 +151,7 @@ class User extends Authenticatable
                     'refresh_token'=> $outh['refresh_token'],
                     'user_id' => $user['id'],
                     'username' => $user['username'],
-                    'roles' => $user['roles']
+                    'role' => $user['role']
                 ];
 
             }catch (GuzzleHttp\Exception\BadResponseException $e){
@@ -201,12 +198,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Role');
     }
 
+    public function role(){
+        return $this->hasOne('App\Models\Role','id','role_id');
+    }
+
     public function hasAnyRoles($roles){
-        return null !== $this->roles()->whereIn('role', $roles)->first();
+        return null !== $this->role()->whereIn('role', $roles)->first();
     }
 
     public function hasRole($role){
-        return null !== $this->roles()->where('role', $role)->first();
+        return null !== $this->role()->where('role', $role)->first();
     }
 
     public function AauthAcessToken(){
@@ -215,6 +216,10 @@ class User extends Authenticatable
 
     public function student(){
         return $this->hasOne('\App\Models\Users\Student','user_id','id');
+    }
+
+    public function teacher(){
+         return $this->hasOne('\App\Models\Users\Teacher','user_id','id');
     }
 
 }

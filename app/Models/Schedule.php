@@ -36,6 +36,7 @@ class Schedule extends Model
         $schedule = Schedule::where('group_id',$request->group_id)
             ->where('room_id', $request->room_id)
             ->where('time_id', $request->time_id)
+            ->where('day_id',$request->day_id)
             ->count();
 
         throw_if($schedule > 0, new HttpException(422,'already exists'));
@@ -45,6 +46,7 @@ class Schedule extends Model
     }
 
     public static function create($request){
+
         $schedule = self::firstOrCreate([
             'subject_id' => $request->subject_id,
             'subject_type_id' => $request->subject_type_id,
@@ -56,12 +58,17 @@ class Schedule extends Model
             'time_id' => $request->time_id
         ]);
 
-        foreach (Week::all() as &$item){
-            $schedule->weeks()->attach($item->id);
-        }
+        $group = Group::findOrFail($request->group_id);
+        $group->subject()->attach($request->subject_id);
+
+        return $schedule;
     }
 
     public function weeks(){
         return $this->belongsToMany('App\Models\Schedule','schedules_weeks','schedules_id','weeks_id');
+    }
+
+    public function subjects(){
+        return $this->hasMany('App\Models\Subject');
     }
 }

@@ -56,6 +56,8 @@ Route::get('/subject/get','Api\SubjectController@get')->middleware('auth:api');
 Route::get('/subject/get-student-weeks','Api\SubjectController@getStudentWeeks')->middleware('auth:api');
 Route::get('/subject/get-teacher-weeks','Api\SubjectController@getTeacherWeeks')->middleware('auth:api');
 Route::post('/subject/attendance','Api\SubjectController@getAttendance')->middleware('auth:api');
+Route::post('/subject/create-lesson','Api\SubjectController@createLesson')->middleware(['auth:api','auth.teacher']);
+
 
 Route::post('/schedule/create','Api\ScheduleController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/schedule/update','Api\ScheduleController@update')->middleware(['auth:api','auth.admin']);

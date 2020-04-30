@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function get(Request $request)
     {
-       return User::with('roles')->find($request->user()->id);
+       return User::with('role')->find($request->user()->id);
     }
 
     public function createTeacher(Request $request)

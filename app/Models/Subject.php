@@ -45,4 +45,8 @@ class Subject extends Model
 
         return $start;
     }
+
+    public static function validateLesson($request){
+
+    }
 }
