@@ -17,7 +17,7 @@ class CreateTeachersSubjectsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('subject_id');
-            $table->integer('group_id');
+            $table->integer('teacher_id');
             $table->integer('status')->default(1);
 
         });

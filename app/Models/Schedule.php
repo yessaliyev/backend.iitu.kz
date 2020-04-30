@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Users\Teacher;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -59,7 +60,10 @@ class Schedule extends Model
         ]);
 
         $group = Group::findOrFail($request->group_id);
+        $teacher = Teacher::findOrFail($request->teacher_id);
         $group->subject()->attach($request->subject_id);
+        $teacher->subject()->attach($request->subject_id);
+
 
         return $schedule;
     }
