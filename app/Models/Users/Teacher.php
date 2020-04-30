@@ -12,11 +12,11 @@ class Teacher extends Model
         return $this->hasMany('\App\Models\Schedule','teacher_id','id');
     }
 
-    public function subjects(){
-        return $this->belongsToMany('App\Models\Subject','schedules');
-    }
+//    public function subjects(){
+//        return $this->belongsToMany('App\Models\Subject','schedules');
+//    }
 
-    public function subject(){
+    public function subjects(){
         return $this->belongsToMany('App\Models\Subject','teachers_subjects');
     }
 }

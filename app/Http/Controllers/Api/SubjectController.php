@@ -44,14 +44,14 @@ class SubjectController extends Controller
         return response(['error' => false,'msg' => "OK!"]);
     }
 
-    public function get(Request $request)
+    public function get()
     {
 
-        if (Auth::user()->roles[0]->role === 'student')
+        if (Auth::user()->role->role === 'student')
             return Auth::user()->student->group->subjects;
 
-        if (Auth::user()->roles[0]->role === 'teacher')
-            return Auth::user()->teacher->subjects()->distinct()->get();
+        if (Auth::user()->role->role === 'teacher')
+            return Auth::user()->teacher->subjects;
 
 
         return false;
