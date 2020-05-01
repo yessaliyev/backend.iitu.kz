@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Attendance;
 use App\Http\Controllers\Controller;
+use App\Models\Lesson;
 use App\Models\Templates\SentTemplate;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
@@ -32,16 +34,12 @@ class AttendanceController extends Controller
         ]);
     }
 
-    public function getAttendance(Request $request)
+    public function getCourseAttendance()
     {
-        $validate_data = $request->validate([
-           'user_id'=>'required',
-       ]);
-
-        return response([
-           'message' => "OK!"
-        ]);
+        return Attendance::teacherLessons(Auth::user()->teacher->id,10);
     }
+
+
 
 
 }

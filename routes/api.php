@@ -31,6 +31,8 @@ Route::post('/template/get','Api\TemplateController@get')->middleware(['auth:api
 
 Route::post('/attendance/set','Api\AttendanceController@set')->middleware('auth:api');
 Route::post('/attendance/get','Api\AttendanceController@get')->middleware('auth:api');
+Route::get('/attendance/get-course-attendance','Api\AttendanceController@getCourseAttendance')->middleware(['auth:api','auth.teacher']);
+
 
 Route::post('/add-news','Api\NewsController@add')->middleware(['auth:api','auth.admin']);
 Route::get('/news/get','Api\NewsController@get');
@@ -46,7 +48,7 @@ Route::post('/specialty/get','Api\SpecialtyController@get');
 
 Route::post('/group/create','Api\GroupController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/group/update','Api\GroupController@update')->middleware(['auth:api','auth.admin']);
-Route::get('/group/get-by-subject','Api\GroupController@getBySubject')->middleware(['auth:api','auth.teacher']);;
+Route::get('/group/get-by-subject','Api\GroupController@getBySubject')->middleware(['auth:api','auth.teacher']);
 Route::get('/group/get-all','Api\GroupController@getAll');
 
 
