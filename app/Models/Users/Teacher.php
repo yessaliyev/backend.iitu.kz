@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Models\Subject;
 use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
@@ -18,5 +19,13 @@ class Teacher extends Model
 
     public function subjects(){
         return $this->belongsToMany('App\Models\Subject','teachers_subjects');
+    }
+
+    public function groups(){
+        return $this->hasManyThrough('App\Models\Group','teachers_subjects');
+    }
+
+    public static function subjectGroups($subject_id){
+        return Subject::findOrFail($subject_id)->subjectGroups;
     }
 }

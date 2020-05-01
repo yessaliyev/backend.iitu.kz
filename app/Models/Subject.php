@@ -15,9 +15,9 @@ class Subject extends Model
         'o_id',
     ];
 
-    public function groups(){
-        return $this->belongsToMany('App\Models\Group','schedules');
-    }
+        public function groups(){
+            return $this->belongsToMany('App\Models\Group','schedules');
+        }
 
     public static function attendance($group_id,$subject_id){
         $result = DB::table('weeks')
@@ -48,5 +48,9 @@ class Subject extends Model
 
     public static function validateLesson($request){
 
+    }
+
+    public function subjectGroups(){
+        return $this->belongsToMany('App\Models\Group','groups_subjects');
     }
 }

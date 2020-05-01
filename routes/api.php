@@ -46,7 +46,7 @@ Route::post('/specialty/get','Api\SpecialtyController@get');
 
 Route::post('/group/create','Api\GroupController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/group/update','Api\GroupController@update')->middleware(['auth:api','auth.admin']);
-Route::get('/group/get','Api\GroupController@get');
+Route::get('/group/get-by-subject','Api\GroupController@getBySubject')->middleware(['auth:api','auth.teacher']);;
 Route::get('/group/get-all','Api\GroupController@getAll');
 
 

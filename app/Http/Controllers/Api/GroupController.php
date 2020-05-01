@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\Specialty;
+use App\Models\Users\Teacher;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -51,7 +52,16 @@ class GroupController extends Controller
 
     public function get(Request $request)
     {
+        if (Auth::user()->role->role === 'teacher'){
 
+        }
+    }
+
+    public function getBySubject(Request $request){
+        $request->validate([
+            'subject_id' => 'required'
+        ]);
+        return Teacher::subjectGroups($request->subject_id);
     }
 
     public function getAll(Request $request)
