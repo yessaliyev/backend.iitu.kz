@@ -6,14 +6,14 @@ use Illuminate\Console\Command;
 use App\User;
 use App\Models\Role;
 
-class AddAdmin extends Command
+class CreateAdmin extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:add-admin {username} {password}';
+    protected $signature = 'command:create-admin {username} {password}';
 
     /**
      * The console command description.

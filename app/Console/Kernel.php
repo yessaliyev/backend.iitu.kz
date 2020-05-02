@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CheckSchedule::class,
-        Commands\AddAdmin::class,
+        Commands\CreateAdmin::class,
         CreateRoles::class,
         SetDefaultTime::class,
         AddSubjectTypes::class,
