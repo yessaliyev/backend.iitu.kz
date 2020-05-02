@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Attendance;
 use App\Http\Controllers\Controller;
-use App\Models\Lesson;
 use App\Models\Templates\SentTemplate;
 use Illuminate\Http\Request;
-use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
