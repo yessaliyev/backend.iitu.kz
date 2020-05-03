@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Models\Attendance;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -12,5 +13,7 @@ class Student extends Model
     public function group(){
         return $this->hasOne('\App\Models\Group','id','group_id');
     }
+
+
 }
 
