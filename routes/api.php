@@ -33,6 +33,7 @@ Route::post('/attendance/set','Api\AttendanceController@set')->middleware('auth:
 Route::post('/attendance/get','Api\AttendanceController@get')->middleware('auth:api');
 Route::get('/attendance/get-course-attendance','Api\AttendanceController@getCourseAttendance')->middleware(['auth:api','auth.teacher']);
 Route::get('/attendance/get-group-attendance','Api\AttendanceController@getGroupAttendance')->middleware(['auth:api','auth.teacher']);
+Route::post('/attendance/set-students-attendance','Api\AttendanceController@setStudentsAttendance')->middleware(['auth:api','auth.teacher']);
 
 
 Route::post('/add-news','Api\NewsController@add')->middleware(['auth:api','auth.admin']);

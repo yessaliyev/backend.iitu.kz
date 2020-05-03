@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class Attendance extends Model
 {
-    //
+
+    protected $fillable = ['lesson_id','student_id','status'];
+
     public static function teacherLessons($teacher_id,$limit = 10)
     {
         return DB::table('lessons')
@@ -20,5 +22,18 @@ class Attendance extends Model
         ->orderBy('date','asc')
         ->take($limit)
         ->get();
+    }
+
+    public static function setStudentAttendance($request)
+    {
+        foreach ($request->students as $student){
+//            return $student['status'];
+            $attendance = self::updateOrCreate([
+                                    'lesson_id' => $request->lesson_id,
+                                    'student_id' => $student['student_id']],['status' => $student['status']]);
+
+        }
+
+        return response(['error' => false,'message' => 'ok']);
     }
 }

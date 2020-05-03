@@ -24,7 +24,7 @@ class Lesson extends Model
             ->leftJoin('lessons','lessons.group_id', '=', 'students.group_id')
             ->leftJoin('users','students.user_id', '=', 'users.id')
             ->select(
-                'students.id as student_id',
+                 'students.id as student_id',
                           'attendances.id as attendance_id',
                           'attendances.status',
                           'users.first_name',

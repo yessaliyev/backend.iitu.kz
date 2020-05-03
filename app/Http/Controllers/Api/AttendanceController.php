@@ -44,11 +44,15 @@ class AttendanceController extends Controller
         return Lesson::studentAttendance($request->lesson_id);
     }
 
-    public function defaultSet(Request $request)
+    public function setStudentsAttendance(Request $request)
     {
         $request->validate([
-            'student_id' => 'required',
+            'students' => 'required',
+            'lesson_id' => 'required'
         ]);
+
+        return Attendance::setStudentAttendance($request);
     }
+
 
 }
