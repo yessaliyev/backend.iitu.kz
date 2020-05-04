@@ -19,6 +19,7 @@ class CreateAttendancesTable extends Migration
             $table->integer('lesson_id');
             $table->integer('student_id');
             $table->integer('status');
+            $table->string('notes');
         });
     }
 

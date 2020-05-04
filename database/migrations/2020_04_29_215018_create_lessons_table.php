@@ -19,9 +19,11 @@ class CreateLessonsTable extends Migration
             $table->integer('group_id');
             $table->integer('subject_id');
             $table->integer('teacher_id');
-            $table->date('date');
+            $table->timestamp('date');
             $table->integer('subject_type_id');
             $table->integer('room_id');
+            $table->string('description');
+            $table->string('notes');
             $table->integer('status')->default(1);
         });
     }
