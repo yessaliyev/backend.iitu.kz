@@ -27,12 +27,10 @@ class Attendance extends Model
 
     public static function setStudentAttendance($request)
     {
-        foreach ($request->students as $student){
-//            return $student['status'];
+        foreach ($request->students as $student) {
             $attendance = self::updateOrCreate([
-                                    'lesson_id' => $request->lesson_id,
-                                    'student_id' => $student['student_id']],['status' => $student['status']]);
-
+                'lesson_id' => $request->lesson_id,
+                'student_id' => $student['student_id']], ['status' => $student['status']]);
         }
 
         return response(['error' => false,'message' => 'ok']);

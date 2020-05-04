@@ -17,14 +17,7 @@ class TemplateController extends Controller
             'finger_id' => 'required'
         ]);
 
-        $template = Template::where('finger_id', $request->finger_id)->where('user_id', $request->user_id)->first();
-        if (empty($template)) $template = new Template();
-        $template->finger_id = $request->finger_id;
-        $template->template = $request->template;
-        $template->user_id = $request->user_id;
-        $template->save();
-
-        return $template;
+        return Template::firstOrCreate($request->all());
     }
 
     public function get(Request $request)
