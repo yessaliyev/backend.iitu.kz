@@ -22,8 +22,8 @@ class CreateLessonsTable extends Migration
             $table->timestamp('date');
             $table->integer('subject_type_id');
             $table->integer('room_id');
-            $table->string('description');
-            $table->string('notes');
+            $table->string('description')->nullable();
+            $table->string('notes')->nullable();
             $table->integer('status')->default(1);
         });
     }

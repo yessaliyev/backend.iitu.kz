@@ -16,9 +16,9 @@ class Group extends Model
         'course'
     ];
 
-//    public function subjects(){
-//        return $this->belongsToMany('App\Models\Subject','schedules');
-//    }
+    public function subject(){
+        return $this->belongsToMany('App\Models\Subject','schedules');
+    }
 
     public function subjects(){
         return $this->belongsToMany('App\Models\Subject','groups_subjects');

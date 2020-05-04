@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 class ScheduleController extends Controller
 {
     public function create(Request $request){
-//        return response(['res' => Schedule::create($request)->get()]);
        if (Schedule::validateRequest($request)){
             return Schedule::create($request);
        }

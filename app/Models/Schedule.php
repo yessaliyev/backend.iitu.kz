@@ -61,8 +61,8 @@ class Schedule extends Model
 
         $group = Group::findOrFail($request->group_id);
         $teacher = Teacher::findOrFail($request->teacher_id);
-        $group->subject()->attach($request->subject_id);
-        $teacher->subject()->attach($request->subject_id);
+        $group->subjects()->attach($request->subject_id);
+        $teacher->subjects()->attach($request->subject_id);
 
 
         return $schedule;
