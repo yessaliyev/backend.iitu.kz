@@ -26,11 +26,11 @@ Route::post('/auth/refresh-token','Api\AuthController@refreshToken');
 Route::post('/auth/logout','Api\AuthController@logout')->middleware('auth:api');
 
 
-Route::post('/template/set','Api\TemplateController@set')->middleware('auth:api');
-Route::post('/template/get','Api\TemplateController@get')->middleware(['auth:api','auth.admin']);
+Route::post('/template/set','Api\TemplateController@set')->middleware(['auth:api','auth.admin','auth.service']);
+Route::post('/template/get','Api\TemplateController@get')->middleware([['auth:api','auth.admin','auth.service']]);
 
-Route::post('/attendance/set','Api\AttendanceController@set')->middleware('auth:api');
-Route::post('/attendance/get','Api\AttendanceController@get')->middleware('auth:api');
+Route::post('/attendance/set','Api\AttendanceController@set')->middleware(['auth:api','auth.admin','auth.service']);
+Route::post('/attendance/get','Api\AttendanceController@get')->middleware(['auth:api','auth.admin','auth.service']);
 Route::get('/attendance/get-course-attendance','Api\AttendanceController@getCourseAttendance')->middleware(['auth:api','auth.teacher']);
 Route::get('/attendance/get-group-attendance','Api\AttendanceController@getGroupAttendance')->middleware(['auth:api','auth.teacher']);
 Route::post('/attendance/set-students-attendance','Api\AttendanceController@setStudentsAttendance')->middleware(['auth:api','auth.teacher']);

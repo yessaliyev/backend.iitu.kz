@@ -24,7 +24,7 @@ class TemplateController extends Controller
     {
         $request->validate(['room_id' => 'required']);
 
-        $templates = Template::all();
+        $templates = Template::getByRoom($request->room_id);
 
         if (empty($templates)) return response(['message' => 'not found']);
 

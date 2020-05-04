@@ -24,6 +24,7 @@ class AccessService
         ]);
 
         $service = ServiceUser::where('username',$request->username)->first();
+
         if (!empty($service) and password_verify($request->access_token,$service->access_token)){
             return $next($request);
         }else{
