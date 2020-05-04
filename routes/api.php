@@ -37,7 +37,7 @@ Route::post('/attendance/set-students-attendance','Api\AttendanceController@setS
 
 
 Route::post('/add-news','Api\NewsController@add')->middleware(['auth:api','auth.admin']);
-Route::get('/news/get','Api\NewsController@get');
+Route::post('/news/get','Api\NewsController@get')->middleware(['auth.service']);
 
 Route::post('/department/create','Api\DepartmentController@create')->middleware(['auth:api','auth.admin']);
 Route::post('/department/update','Api\DepartmentController@update')->middleware(['auth:api','auth.admin']);
