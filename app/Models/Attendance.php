@@ -18,7 +18,7 @@ class Attendance extends Model
         ->leftJoin('teachers','teachers.id','=','lessons.teacher_id')
         ->leftJoin('groups','groups.id','=','lessons.group_id')
         ->leftJoin('rooms','rooms.id','=','lessons.room_id')
-        ->select('lessons.*')
+//        ->select('lessons.*','groups.*',)
         ->where('lessons.teacher_id','=',$teacher_id)
         ->orderBy('date','asc')
         ->take($limit)

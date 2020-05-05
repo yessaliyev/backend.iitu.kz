@@ -2,6 +2,7 @@
 
 namespace App\Models\Templates;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -11,10 +12,17 @@ class Template extends Model
 
     public static function getByRoom($room_id)
     {
-        return DB::table('templates')
-                ->leftJoin('groups','groups.id','=','students.group_id')
-                ->leftJoin('schedules','schedules.group_id','=','students.group_id')
-                ->leftJoin('rooms','rooms.id','=','schedules.room_id')
-            ->get();
+        $start_time = Carbon::now()->toDateString();
+        $end_time = Carbon::now()->addMinutes(11)->toDateString();
+
+        return DB::select(
+            'select t.* from templates t
+                    left join students s on t.user_id = s.user_id
+                    left join groups g on s.group_id = g.id
+                    left join (
+                        select * from lessons where room_id = '.$room_id.' and date > '.$start_time.'
+                                                                           and  date <  '.$end_time.'
+                        ) lesson on lesson.group_id = s.group_id where lesson.room_id = '.$room_id
+        );
     }
 }

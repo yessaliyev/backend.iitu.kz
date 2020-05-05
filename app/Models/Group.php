@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Users\Student;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
@@ -35,6 +36,11 @@ class Group extends Model
         }
     }
 
+    public function currentLesson(){
+        return Lesson::where('date','>', Carbon::now()->toDateString())
+            ->where('date','<',Carbon::now()->addMinutes(11))
+            ->where('group_id',$this->id)->first();
+    }
 
 
 }

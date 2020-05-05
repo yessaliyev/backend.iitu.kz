@@ -14,6 +14,5 @@ class Student extends Model
         return $this->hasOne('\App\Models\Group','id','group_id');
     }
 
-
 }
 
