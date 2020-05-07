@@ -43,8 +43,8 @@ class AttendanceController extends Controller
 
     public function getGroupAttendance(Request $request)
     {
-        $request->validate(['lesson_id' => 'required']);
-        return Lesson::studentAttendance($request->lesson_id);
+        $request->validate(['lesson_id' => 'required|integer']);
+        return Lesson::studentsAttendance($request->lesson_id);
     }
 
     public function setStudentsAttendance(Request $request)
