@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Lesson;
 use App\Models\Subject;
+use App\Models\SubjectType;
 use App\Models\Week;
 use Illuminate\Http\Request;
 use Auth;
@@ -103,14 +104,22 @@ class SubjectController extends Controller
     public function createLesson(Request $request){
         $request->validate([
             'subject_id' => 'required',
-            'teacher_id' => 'required',
             'subject_type_id' => 'required',
             'group_id' => 'required',
             'date' => 'required',
-            'room_id' => 'required',
+            'room_num' => 'required',
         ]);
 
-        return Lesson::firstOrCreate($request->all());
+        return Lesson::createLesson($request,Auth::user()->id);
+    }
+
+    public function getTypes(){
+        return SubjectType::all();
+    }
+
+    public function getGroups(Request $request){
+        $request->validate(['subject_id' => 'required|integer']);
+        return Subject::findOrFail($request->subject_id)->groups;
     }
 
 }
