@@ -20,10 +20,10 @@ class Lesson extends Model
 
     public static function studentsAttendance($lesson_id)
     {
-        return DB::table('students')
-            ->leftJoin('attendances','attendances.student_id' , 'students.id')
-            ->leftJoin('lessons','lessons.group_id', '=', 'students.group_id')
-            ->leftJoin('users','students.user_id', '=', 'users.id')
+        return DB::table('lessons')
+            ->leftJoin('attendances','lessons.id','=','attendances.lesson_id')
+            ->leftJoin('students','attendances.student_id','=','students.id')
+            ->leftJoin('users','students.user_id','=','users.id')
             ->select(
                 'students.id as student_id',
                         'attendances.id as attendance_id',
@@ -31,8 +31,8 @@ class Lesson extends Model
                         'users.first_name',
                         'users.last_name',
                         'attendances.notes')
-            ->where('lesson_id','=',$lesson_id)
-
+            ->where('lessons.id','=',$lesson_id)
+            ->whereNotNull('attendances.id')
             ->get();
     }
 

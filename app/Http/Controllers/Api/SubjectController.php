@@ -110,7 +110,7 @@ class SubjectController extends Controller
             'room_num' => 'required',
         ]);
 
-        return Lesson::createLesson($request,Auth::user()->id);
+        return Lesson::createLesson($request,Auth::user()->teacher->id);
     }
 
     public function getTypes(){

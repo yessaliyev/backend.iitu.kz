@@ -18,10 +18,11 @@ class Attendance extends Model
         ->leftJoin('teachers','teachers.id','=','lessons.teacher_id')
         ->leftJoin('groups','groups.id','=','lessons.group_id')
         ->leftJoin('rooms','rooms.id','=','lessons.room_id')
-//        ->select('lessons.*','groups.*',)
+        ->select('lessons.*','groups.name_en','subject_types.type_en','rooms.room_num')
         ->where('lessons.teacher_id','=',$teacher_id)
         ->orderBy('date','asc')
         ->take($limit)
+//            ->toSql();
         ->get();
     }
 
