@@ -36,6 +36,10 @@ class Group extends Model
         }
     }
 
+    public function students(){
+        return $this->hasMany('App\Models\Users\Student');
+    }
+
     public function currentLesson(){
         return Lesson::where('date','>', Carbon::now()->toDateString())
             ->where('date','<',Carbon::now()->addMinutes(11))

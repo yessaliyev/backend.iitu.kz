@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 class Attendance extends Model
 {
 
+    const ABSENT = 0;
+    const PRESENT = 1;
+    const REASON = 2;
+
     protected $fillable = ['lesson_id','student_id','status'];
 
     public static function teacherLessons($teacher_id,$limit = 10)

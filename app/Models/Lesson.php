@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class Lesson extends Model
 {
-    //
     protected $fillable = [
         'subject_id',
         'subject_type_id',
@@ -17,6 +16,22 @@ class Lesson extends Model
         'room_id',
         'date'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::created(function($model){
+            $students = Group::findOrFail($model->group_id)->students;
+//            file_put_contents(public_path().'/request.json',json_encode($model));
+            foreach ($students as $student){
+                Attendance::firstOrCreate([
+                    'student_id' => $student->id,
+                    'lesson_id' => $model->id,
+                    'status' => Attendance::ABSENT
+                ]);
+            }
+        });
+    }
 
     public static function studentsAttendance($lesson_id)
     {
@@ -32,7 +47,6 @@ class Lesson extends Model
                         'users.last_name',
                         'attendances.notes')
             ->where('lessons.id','=',$lesson_id)
-            ->whereNotNull('attendances.id')
             ->get();
     }
 
