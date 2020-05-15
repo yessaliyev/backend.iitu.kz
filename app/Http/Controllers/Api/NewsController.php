@@ -19,6 +19,7 @@ class NewsController extends Controller
     }
 
     public function get(){
-        return News::where('status',1)->get();
+        return response(['res' => env('LOCAL_URL')]);
+//        return News::where('status',1)->get();
     }
 }
