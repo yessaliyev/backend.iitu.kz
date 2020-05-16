@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\AddSubjectTypes;
 use App\Console\Commands\CreateRoles;
+use App\Console\Commands\CreateRooms;
 use App\Console\Commands\CreateServiceUsers;
 use App\Console\Commands\CreateWeeks;
 use App\Console\Commands\SetDefaultTime;
@@ -26,7 +27,8 @@ class Kernel extends ConsoleKernel
         AddSubjectTypes::class,
         Upload::class,
         CreateWeeks::class,
-        CreateServiceUsers::class
+        CreateServiceUsers::class,
+        CreateRooms::class
     ];
 
     /**
