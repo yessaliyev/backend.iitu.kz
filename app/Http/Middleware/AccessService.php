@@ -5,9 +5,8 @@ namespace App\Http\Middleware;
 
 use App\Models\Users\ServiceUser;
 use Closure;
-use Illuminate\Auth\Middleware\Authenticate;
 
-class AccessService /*extends Authenticate*/
+class AccessService
 {
     /**
      * Handle an incoming request.
@@ -19,8 +18,6 @@ class AccessService /*extends Authenticate*/
 
     public function handle($request, Closure $next)
     {
-//        return response(['res' => $this->authenticate($request,['api',])]);
-
         $request->validate([
             'access_token' => 'required',
             'username' => 'required',
