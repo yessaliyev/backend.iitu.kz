@@ -27,7 +27,7 @@ Route::post('/auth/logout', 'Api\AuthController@logout')->middleware('auth:api')
 
 
 Route::post('/template/set', 'Api\TemplateController@set')->middleware(['auth.service']);
-Route::post('/template/get', 'Api\TemplateController@get')->middleware([['auth.service']]);
+Route::post('/template/get', 'Api\TemplateController@get')->middleware(['auth.service']);
 
 Route::post('/attendance/set', 'Api\AttendanceController@set')->middleware('auth.service');
 Route::get('/attendance/get-course-attendance', 'Api\AttendanceController@getCourseAttendance')->middleware(['auth:api', 'auth.teacher']);
