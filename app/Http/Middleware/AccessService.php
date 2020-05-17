@@ -5,13 +5,9 @@ namespace App\Http\Middleware;
 
 use App\Models\Users\ServiceUser;
 use Closure;
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Illuminate\Contracts\Auth\Factory;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use laravel\Passport\Client as PassportClient;
+use Illuminate\Auth\Middleware\Authenticate;
 
-class AccessService
+class AccessService /*extends Authenticate*/
 {
     /**
      * Handle an incoming request.
