@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\AccessService;
 use App\Http\Middleware\AccessTeacher;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Laravel\Passport\Http\Middleware\CheckClientCredentials;
 
 class Kernel extends HttpKernel
 {
@@ -67,6 +68,7 @@ class Kernel extends HttpKernel
         'auth.admin' => \App\Http\Middleware\AccessAdmin::class,
         'auth.teacher' => AccessTeacher::class,
         'auth.service' => AccessService::class,
+        'client' => CheckClientCredentials::class
     ];
 
     /**

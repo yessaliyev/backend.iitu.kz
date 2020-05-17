@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
-use GuzzleHttp;
 use Auth;
 
 class AuthController extends Controller
