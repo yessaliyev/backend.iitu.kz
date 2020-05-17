@@ -3,8 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
-class AccessAdmin
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Middleware\Authenticate;
+
+class AccessAdmin extends Authenticate
 {
     /**
      * Handle an incoming request.

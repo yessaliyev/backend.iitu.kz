@@ -6,7 +6,7 @@ use App\Models\Attendance;
 use App\Http\Controllers\Controller;
 use App\Models\Lesson;
 use App\Models\Templates\SentTemplate;
-use http\Client\Curl\User;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
