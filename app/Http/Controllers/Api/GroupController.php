@@ -31,33 +31,34 @@ class GroupController extends Controller
             'course' => $request->course
         ]);
 
-        return response(['error' => false,'msg' => "OK!"]);
+        return response(['error' => false, 'msg' => "OK!"]);
     }
 
     public function update(Request $request)
     {
         $request->validate(['group_id' => $request->specialty_id]);
-        $group = Group::where('id',$request->group_id)->firstOrFail();
+        $group = Group::where('id', $request->group_id)->firstOrFail();
 
         if (!empty($request->name_kk)) $group->name_kk = $request->name_kk;
         if (!empty($request->name_ru)) $group->name_ru = $request->name_ru;
         if (!empty($request->name_en)) $group->name_en = $request->name_en;
 
         if (!$group->save()) {
-            return response(['error' => true,'msg' => 'something wrong with saving on line. '.__LINE__],500);
+            return response(['error' => true, 'msg' => 'something wrong with saving on line. ' . __LINE__], 500);
         }
 
-        return response(['error' => false,'msg' => "OK!"]);
+        return response(['error' => false, 'msg' => "OK!"]);
     }
 
     public function get(Request $request)
     {
-        if (Auth::user()->role->role === 'teacher'){
+        if (Auth::user()->role->role === 'teacher') {
 
         }
     }
 
-    public function getBySubject(Request $request){
+    public function getBySubject(Request $request)
+    {
         $request->validate([
             'subject_id' => 'required'
         ]);
@@ -66,8 +67,14 @@ class GroupController extends Controller
 
     public function getAll(Request $request)
     {
-       $request->validate(['course' => 'required|integer']);
-       return Group::where('course',$request->course)->get();
+        $request->validate(['course' => 'required|integer']);
+        return Group::where('course', $request->course)->get();
+    }
+
+    public function getStudents(Request $request)
+    {
+        $request->validate(['group_id' => 'required']);
+        return Group::findOrFail($request->group_id)->students;
     }
 
     public function delete(Request $request)

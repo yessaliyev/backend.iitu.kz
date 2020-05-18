@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Users\ServiceUser;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class AccessService
 {
