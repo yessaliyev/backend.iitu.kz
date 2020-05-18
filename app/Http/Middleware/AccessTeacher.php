@@ -17,6 +17,6 @@ class AccessTeacher
     public function handle($request, Closure $next)
     {
         if (Auth::user()->hasRole('teacher')) return $next($request);
-        return response(['msg' => Auth::user()]);
+        return response(['msg' => 'u are not allowed']);
     }
 }
