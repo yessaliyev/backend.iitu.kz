@@ -19,7 +19,6 @@ class CreateTeachersSubjectsTable extends Migration
             $table->integer('subject_id');
             $table->integer('teacher_id');
             $table->integer('status')->default(1);
-
         });
     }
 

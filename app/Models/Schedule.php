@@ -22,7 +22,6 @@ class Schedule extends Model
 
     public static function validateRequest($request)
     {
-
         $request->validate([
             'subject_id'       => 'required|exists:subjects,id',
             'subject_type_id'  => 'required|exists:subject_types,id',
@@ -61,9 +60,14 @@ class Schedule extends Model
 
         $group = Group::findOrFail($request->group_id);
         $teacher = Teacher::findOrFail($request->teacher_id);
-        $group->subjects()->attach($request->subject_id);
-        $teacher->subjects()->attach($request->subject_id);
-
+        try {
+            $group->subjects()->attach($request->subject_id);
+            $teacher->subjects()->attach($request->subject_id);
+        }catch (\Exception $e){
+//            23505 -> duplicate_error
+            if ($e->getCode() != 23505) return $e;
+            return $schedule;
+        }
 
         return $schedule;
     }
