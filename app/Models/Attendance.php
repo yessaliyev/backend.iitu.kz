@@ -26,7 +26,6 @@ class Attendance extends Model
         ->where('lessons.teacher_id','=',$teacher_id)
         ->orderBy('date','asc')
         ->take($limit)
-//            ->toSql();
         ->get();
     }
 

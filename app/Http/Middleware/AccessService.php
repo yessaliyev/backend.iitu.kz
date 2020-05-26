@@ -32,6 +32,4 @@ class AccessService
             return response(['msg' => 'u r not allowed']);
         }
     }
-
-
 }

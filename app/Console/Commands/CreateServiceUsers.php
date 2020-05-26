@@ -57,6 +57,5 @@ class CreateServiceUsers extends Command
         }else{
             echo 'error';
         }
-
     }
 }

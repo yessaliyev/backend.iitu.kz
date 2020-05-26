@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,63 +13,63 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/auth/validate-token', function () {
-    return ['data' => 'Token is valid'];
-})->middleware('auth:api');
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/user/get', 'Api\UserController@get');
+    Route::post('/auth/logout', 'Api\AuthController@logout');
+    Route::get('/subject/get', 'Api\SubjectController@get');
+    Route::get('/subject/get-student-weeks', 'Api\SubjectController@getStudentWeeks');
+    Route::get('/subject/get-teacher-weeks', 'Api\SubjectController@getTeacherWeeks');
+    Route::post('/subject/attendance', 'Api\SubjectController@getAttendance');
 
-Route::get('/user/get', 'Api\UserController@get')->middleware('auth:api');
-Route::get('/user/get-roles', 'Api\UserController@getRoles');
+});
 
-Route::post('/auth/register', 'Api\AuthController@register')->middleware(['auth:api', 'auth.admin']);
+Route::middleware(['auth:api', 'auth.admin'])->group(function () {
+    Route::get('/user/get-roles', 'Api\UserController@getRoles');
+    Route::post('/auth/register', 'Api\AuthController@register');
+    Route::post('/department/create', 'Api\DepartmentController@create');
+    Route::post('/department/update', 'Api\DepartmentController@update');
+    Route::post('/add-news', 'Api\NewsController@add');
+    Route::post('/department/create', 'Api\DepartmentController@create');
+    Route::post('/department/update', 'Api\DepartmentController@update');
+    Route::post('/specialty/create', 'Api\SpecialtyController@create');
+    Route::post('/specialty/update', 'Api\SpecialtyController@update');
+    Route::post('/group/create', 'Api\GroupController@create');
+    Route::post('/group/update', 'Api\GroupController@update');
+    Route::post('/subject/create', 'Api\SubjectController@create');
+    Route::post('/subject/update', 'Api\SubjectController@update');
+    Route::post('/subject/create', 'Api\SubjectController@create');
+    Route::post('/subject/update', 'Api\SubjectController@update');
+    Route::post('/user/create-appointment', 'Api\UserController@createAppointment');
+    Route::post('/file/upload', 'Api\FileController@upload');
+});
+
+Route::middleware(['auth:api', 'auth.teacher'])->group(function () {
+    Route::get('/attendance/get-course-attendance', 'Api\AttendanceController@getCourseAttendance');
+    Route::get('/attendance/get-group-attendance', 'Api\AttendanceController@getGroupAttendance');
+    Route::post('/attendance/set-students-attendance', 'Api\AttendanceController@setStudentsAttendance');
+    Route::get('/group/get-by-subject', 'Api\GroupController@getBySubject');
+    Route::post('/subject/create-lesson', 'Api\SubjectController@createLesson');
+    Route::get('/subject/get-types', 'Api\SubjectController@getTypes');
+    Route::get('/subject/get-groups', 'Api\SubjectController@getGroups');
+    Route::post('/subject/add-to-week', 'Api\SubjectController@addToWeek');
+});
+
+Route::middleware(['auth.service'])->group(function () {
+    Route::get('/group/get-students', 'Api\GroupController@getStudents');
+    Route::post('/template/set', 'Api\TemplateController@set');
+    Route::post('/template/get', 'Api\TemplateController@get');
+    Route::post('/attendance/set', 'Api\AttendanceController@set');
+});
+
 Route::post('/auth/login', 'Api\AuthController@login');
 Route::post('/auth/refresh-token', 'Api\AuthController@refreshToken');
-Route::post('/auth/logout', 'Api\AuthController@logout')->middleware('auth:api');
-
-
-Route::post('/template/set', 'Api\TemplateController@set')->middleware(['auth.service']);
-Route::post('/template/get', 'Api\TemplateController@get')->middleware(['auth.service']);
-
-Route::post('/attendance/set', 'Api\AttendanceController@set')->middleware('auth.service');
-Route::get('/attendance/get-course-attendance', 'Api\AttendanceController@getCourseAttendance')->middleware(['auth:api', 'auth.teacher']);
-Route::get('/attendance/get-group-attendance', 'Api\AttendanceController@getGroupAttendance')->middleware(['auth:api', 'auth.teacher']);
-Route::post('/attendance/set-students-attendance', 'Api\AttendanceController@setStudentsAttendance')->middleware(['auth:api', 'auth.teacher']);
-
-
-Route::post('/add-news', 'Api\NewsController@add')->middleware(['auth:api', 'auth.admin']);
 Route::get('/news/get', 'Api\NewsController@get');
-
-Route::post('/department/create', 'Api\DepartmentController@create')->middleware(['auth:api', 'auth.admin']);
-Route::post('/department/update', 'Api\DepartmentController@update')->middleware(['auth:api', 'auth.admin']);
 Route::get('/department/get', 'Api\DepartmentController@get');
 Route::get('/department/get-all', 'Api\DepartmentController@getAll');
-
-Route::post('/specialty/create', 'Api\SpecialtyController@create')->middleware(['auth:api', 'auth.admin']);
-Route::post('/specialty/update', 'Api\SpecialtyController@update')->middleware(['auth:api', 'auth.admin']);
 Route::post('/specialty/get', 'Api\SpecialtyController@get');
-
-Route::post('/group/create', 'Api\GroupController@create')->middleware(['auth:api', 'auth.admin']);
-Route::post('/group/update', 'Api\GroupController@update')->middleware(['auth:api', 'auth.admin']);
-Route::get('/group/get-by-subject', 'Api\GroupController@getBySubject')->middleware(['auth:api', 'auth.teacher']);
 Route::get('/group/get-all', 'Api\GroupController@getAll');
-Route::get('/group/get-students', 'Api\GroupController@getStudents')->middleware(['auth:api']);
-
-
-Route::post('/subject/create', 'Api\SubjectController@create')->middleware(['auth:api', 'auth.admin']);
-Route::post('/subject/update', 'Api\SubjectController@update')->middleware(['auth:api', 'auth.admin']);
-Route::get('/subject/get', 'Api\SubjectController@get')->middleware('auth:api');
-Route::get('/subject/get-student-weeks', 'Api\SubjectController@getStudentWeeks')->middleware('auth:api');
-Route::get('/subject/get-teacher-weeks', 'Api\SubjectController@getTeacherWeeks')->middleware('auth:api');
-Route::post('/subject/attendance', 'Api\SubjectController@getAttendance')->middleware('auth:api');
-Route::post('/subject/create-lesson', 'Api\SubjectController@createLesson')->middleware(['auth:api', 'auth.teacher']);
-Route::get('/subject/get-types', 'Api\SubjectController@getTypes')->middleware(['auth:api', 'auth.teacher']);
-Route::get('/subject/get-groups', 'Api\SubjectController@getGroups')->middleware(['auth:api', 'auth.teacher']);
-
-
-Route::post('/schedule/create', 'Api\ScheduleController@create')->middleware(['auth:api', 'auth.admin']);
-Route::post('/schedule/update', 'Api\ScheduleController@update')->middleware(['auth:api', 'auth.admin']);
 Route::get('/schedule/get', 'Api\ScheduleController@get');
+Route::get('news/get-by-id','Api\NewsController@getById');
 
-Route::post('/user/create-appointment', 'Api\UserController@createAppointment')->middleware(['auth:api', 'auth.admin']);
 
-Route::post('/file/upload', 'Api\FileController@upload')->middleware(['auth:api', 'auth.admin']);
 

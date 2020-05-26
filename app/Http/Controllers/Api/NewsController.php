@@ -19,7 +19,11 @@ class NewsController extends Controller
     }
 
     public function get(){
-//        return response(['res' => env('LOCAL_URL')]);
         return News::where('status',1)->get();
+    }
+
+    public function getById(Request $request){
+        $request->validate(['news_id' => 'required|integer']);
+        return News::findOrFail($request->news_id);
     }
 }

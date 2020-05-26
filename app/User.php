@@ -66,8 +66,8 @@ class User extends Authenticatable
             case 'teacher':
                 $regalia = Regalia::firstOrCreate([
                     'regalia_en' => $request->regalia['regalia_en'],
-//                    'regalia_ru' => $request->regalia['regalia_ru'],
-//                    'regalia_kk' => $request->regalia['regalia_kk'],
+                    'regalia_ru' => $request->regalia['regalia_ru'],
+                    'regalia_kk' => $request->regalia['regalia_kk'],
                 ]);
 
                 Teacher::firstOrCreate([

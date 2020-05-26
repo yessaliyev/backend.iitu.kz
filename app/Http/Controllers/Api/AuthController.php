@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
 
     /**
-     * создает пользователя в зависимости от роля
+     * создает пользователя в зависимости от role
      * регистрировать может только админ
      * @param Request $request
      * @return Object User
