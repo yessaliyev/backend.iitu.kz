@@ -108,21 +108,14 @@ class SubjectController extends Controller
 
         $data = $request->all();
 
-        //TODO:сделать отдельный метод в модельке
-        if ($request->file('filenames')) {
-            $names = [];
-            foreach($request->file('filenames') as $file)
-            {
-                if (!$file->isValid()) return false;
-                $file_name = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads'), $file_name);
-                $names[] = $file_name;
-            }
-            return $names;
+        if ($request->file('files')) {
+            $filenames = WeekTask::uploadTaskFile($request->file('files'));
+            $data['filenames'] = $filenames;
+            unset($data['files']);
         }
-        return 'weq';
 
         $week_task = WeekTask::firstOrCreate($data);
+
         return response($week_task);
     }
 
