@@ -10,5 +10,10 @@ class Week extends Model
     const MIDTERM_WEEk = 2;
     const ENDTERM_WEEK = 3;
 
-    protected $fillable = ['week_num','start','end','status','test'];
+    protected $fillable = ['week_num', 'start', 'end', 'status', 'test'];
+
+    public function getTasks()
+    {
+        return $this->hasOne('App\Models\WeekTask');
+    }
 }

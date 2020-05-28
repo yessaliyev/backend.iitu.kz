@@ -93,7 +93,8 @@ class SubjectController extends Controller
                 'id' => $week->id,
                 'start' => date('d-M', strtotime($week->start)),
                 'end' => date('d-M', strtotime($week->end)),
-                'week_num' => $week->week_num
+                'week_num' => $week->week_num,
+                'task' => $week->getTasks
             ];
         }
         return $res;
