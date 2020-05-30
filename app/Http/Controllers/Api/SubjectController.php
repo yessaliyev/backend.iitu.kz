@@ -84,20 +84,26 @@ class SubjectController extends Controller
         return $res;
     }
 
-    public function getTeacherWeeks()
+    public function getWeeks()
     {
-        $res = [];
+        $result = [];
 
         foreach (Week::all() as $week) {
-            $res[] = [
+            $res = [
                 'id' => $week->id,
                 'start' => date('d-M', strtotime($week->start)),
                 'end' => date('d-M', strtotime($week->end)),
                 'week_num' => $week->week_num,
-                'task' => $week->getTasks
+                'task' => $week->getTasks,
             ];
+
+            if (isset($week->getTasks->filenames)) {
+                $res['task']->filenames = json_decode($week->getTasks->filenames);
+            }
+            $result[] = $res;
         }
-        return $res;
+
+        return $result;
     }
 
     public function addToWeek(Request $request)

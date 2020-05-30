@@ -15,9 +15,6 @@ class WeekTask extends Model
         'status',
     ];
 
-    protected $casts = ['filenames' => 'array'];
-
-
     public static function uploadTaskFile($files)
     {
         $names = [];

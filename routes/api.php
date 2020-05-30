@@ -18,7 +18,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/auth/logout', 'Api\AuthController@logout');
     Route::get('/subject/get', 'Api\SubjectController@get');
     Route::get('/subject/get-student-weeks', 'Api\SubjectController@getStudentWeeks');
-    Route::get('/subject/get-teacher-weeks', 'Api\SubjectController@getTeacherWeeks');
+    Route::get('/subject/get-weeks', 'Api\SubjectController@getWeeks');
     Route::post('/subject/attendance', 'Api\SubjectController@getAttendance');
 
 });
