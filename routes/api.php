@@ -66,7 +66,7 @@ Route::post('/auth/refresh-token', 'Api\AuthController@refreshToken');
 Route::get('/news/get', 'Api\NewsController@get');
 Route::get('/department/get', 'Api\DepartmentController@get');
 Route::get('/department/get-all', 'Api\DepartmentController@getAll');
-Route::post('/specialty/get', 'Api\SpecialtyController@get');
+Route::get('/specialty/get', 'Api\SpecialtyController@get');
 Route::get('/group/get-all', 'Api\GroupController@getAll');
 Route::get('/schedule/get', 'Api\ScheduleController@get');
 Route::get('news/get-by-id','Api\NewsController@getById');
