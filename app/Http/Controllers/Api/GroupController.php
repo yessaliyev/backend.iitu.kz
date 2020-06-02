@@ -74,7 +74,7 @@ class GroupController extends Controller
     public function getStudents(Request $request)
     {
         $request->validate(['group_id' => 'required']);
-        return Group::findOrFail($request->group_id)->students;
+        return Group::findOrFail($request->group_id)->students($request->group_id);
     }
 
     public function delete(Request $request)
