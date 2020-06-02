@@ -12,17 +12,20 @@ class Template extends Model
 
     public static function getByRoom($room_id)
     {
-        $start_time = Carbon::now()->toDateString();
-        $end_time = Carbon::now()->addMinutes(11)->toDateString();
+        date_default_timezone_set('Asia/Almaty');
+        $start = time();
+        $end = time()+660;
 
-        return DB::select(
+        $sql = DB::select(
             'select t.* from templates t
                     left join students s on t.user_id = s.user_id
                     left join groups g on s.group_id = g.id
                     left join (
-                        select * from lessons where room_id = '.$room_id.' and date > '.$start_time.'
-                                                                           and  date <  '.$end_time.'
+                        select * from lessons where room_id = '.$room_id.' and date > (SELECT TIMESTAMP \'epoch\' + '.$start.' * INTERVAL \'1 second\')
+                                                                           and  date <  (SELECT TIMESTAMP \'epoch\' + '.$end.' * INTERVAL \'1 second\')
                         ) lesson on lesson.group_id = s.group_id where lesson.room_id = '.$room_id
         );
+
+
     }
 }

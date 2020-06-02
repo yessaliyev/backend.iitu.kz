@@ -42,7 +42,7 @@ class SpecialtyController extends Controller
 
     public function get(Request $request)
     {
-
+        return Specialty::all();
     }
 
     public function delete(Request $request)

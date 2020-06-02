@@ -67,8 +67,11 @@ class GroupController extends Controller
 
     public function getAll(Request $request)
     {
-        $request->validate(['course' => 'required|integer']);
-        return Group::where('course', $request->course)->get();
+        $request->validate([
+            'course' => 'required|integer',
+            'specialty_id' => 'required|integer'
+        ]);
+        return Group::where('course', $request->course)->where('specialty_id',$request->specialty_id)->get();
     }
 
     public function getStudents(Request $request)

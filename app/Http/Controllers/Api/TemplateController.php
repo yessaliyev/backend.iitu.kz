@@ -30,7 +30,7 @@ class TemplateController extends Controller
         $request->validate(['room_id' => 'required|integer']);
 
         $templates = Template::getByRoom($request->room_id);
-
+        return $templates;
         $sent = new SentTemplate();
         $sent->room_id = $request->room_id;
         $sent->data = json_encode($templates,JSON_UNESCAPED_UNICODE);
