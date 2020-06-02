@@ -18,7 +18,11 @@ class TemplateController extends Controller
             'finger_id' => 'required'
         ]);
 
-        return Template::firstOrCreate($request->all());
+        return Template::firstOrCreate([
+            'user_id' => $request->user_id,
+            'template' => $request->template,
+            'finger_id' => $request->finger_id
+        ]);
     }
 
     public function get(Request $request)
