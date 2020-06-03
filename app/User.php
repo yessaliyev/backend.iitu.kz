@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'password','username','role_id'
+        'password','username','role_id','first_name','last_name','middle_name'
     ];
 
     /**
@@ -52,11 +52,17 @@ class User extends Authenticatable
 
         if (empty($role)) return response(['error' => true,'msg'=>'role not found'],'404');
 
-        $user = User::create([
+        $data = [
             'username' => $request->username,
             'password' => bcrypt($request->password),
             'role_id' => $role->id
-        ]);
+        ];
+
+        if (isset($request->first_name)) $data['first_name'] = $request->first_name;
+        if (isset($request->last_name)) $data['last_name'] = $request->last_name;
+        if (isset($request->middle_name)) $data['middle_name'] = $request->middle_name;
+
+        $user = User::create($data);
 
         switch ($request->role){
             case 'student':
