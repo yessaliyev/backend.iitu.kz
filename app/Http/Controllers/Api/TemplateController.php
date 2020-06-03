@@ -28,8 +28,9 @@ class TemplateController extends Controller
     public function get(Request $request)
     {
         $request->validate(['room_id' => 'required|integer']);
+        if (!isset($request->test)) $request->test = false;
 
-        $templates = Template::getByRoom($request->room_id);
+        $templates = Template::getByRoom($request->room_id,$request->test);
         return $templates;
         $sent = new SentTemplate();
         $sent->room_id = $request->room_id;
