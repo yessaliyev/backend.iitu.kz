@@ -2,7 +2,6 @@
 
 namespace App\Models\Templates;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -13,8 +12,8 @@ class Template extends Model
     public static function getByRoom($room_id, $test = false)
     {
         date_default_timezone_set('Asia/Almaty');
-        $start = date('Y-m-d H:i:s', strtotime('-2 minutes'));
-        $end = date('Y-m-d H:i:s', strtotime('+2 minutes'));
+        $start = date('Y-m-d H:i:s', strtotime('+8 minutes'));
+        $end = date('Y-m-d H:i:s', strtotime('+21 minutes'));
 //        return [$start,$end];
         if ($test) {
             $start = date('Y-m-d H:i:s', strtotime('-2 weeks'));
