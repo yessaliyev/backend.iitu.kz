@@ -13,8 +13,8 @@ class TemplateController extends Controller
     public function set(Request $request)
     {
         $request->validate([
-            'user_id'=>'required',
-            'template'=>'required',
+            'user_id' => 'required',
+            'template' => 'required',
             'finger_id' => 'required'
         ]);
 
@@ -30,14 +30,25 @@ class TemplateController extends Controller
         $request->validate(['room_id' => 'required|integer']);
         if (!isset($request->test)) $request->test = false;
 
-        $templates = Template::getByRoom($request->room_id,$request->test);
-        return $templates;
+        $templates = Template::getByRoom($request->room_id, $request->test);
+
+        $sent = SentTemplate::where('data', json_encode($templates, JSON_UNESCAPED_UNICODE))->first();
+
+        if (!empty($sent) and !empty(json_decode($sent->data))) {
+            return response([
+                'new' => false,
+                'templates' => json_decode($sent->data)
+
+            ]);
+        }
+
         $sent = new SentTemplate();
         $sent->room_id = $request->room_id;
-        $sent->data = json_encode($templates,JSON_UNESCAPED_UNICODE);
+        $sent->data = json_encode($templates, JSON_UNESCAPED_UNICODE);
         $sent->save();
 
         return response([
+            'new' => true,
             'templates' => $templates
         ]);
     }
