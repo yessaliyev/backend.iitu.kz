@@ -20,11 +20,9 @@ class AttendanceController extends Controller
         ]);
 
         $sent_data = SentTemplate::where('room_id' , $request->room_id)->orderBy('id','desc')->first();
-
         if (empty($sent_data)) return response(['message' => 'not found']);
         $student = User::findOrFail(json_decode($sent_data->data,true)[$request->index]['user_id'])->student;
-        $lesson = $student->group->currentLesson;
-
+        $lesson = $student->group->currentLesson();
         $att = new Attendance();
         $att->lesson_id = $lesson->id;
         $att->student_id = $student->id;
