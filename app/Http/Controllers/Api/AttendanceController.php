@@ -27,7 +27,7 @@ class AttendanceController extends Controller
         $student = User::findOrFail(json_decode($sent_data->data, true)[$request->index]['user_id'])->student;
         $lesson = $student->group->currentLesson();
 
-        throw_if(empty($request->group_id), new NotFoundHttpException('current lesson not found'));
+        throw_if(empty($lesson), new NotFoundHttpException('current lesson not found'));
 
         Attendance::updateOrCreate([
             'lesson_id' => $lesson->id,
