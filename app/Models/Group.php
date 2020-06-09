@@ -26,6 +26,10 @@ class Group extends Model
         return $this->belongsToMany('App\Models\Subject','groups_subjects');
     }
 
+    public function attendanceStudents(){
+        return $this->hasMany('App\Models\Users\Student');
+    }
+
     public function studentsAttendance($date){
 
         $students = Student::where('group_id',$this->id)->get();

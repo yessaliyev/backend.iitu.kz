@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class Lesson extends Model
 {
@@ -21,8 +22,11 @@ class Lesson extends Model
     {
         parent::boot();
         self::created(function($model){
-            $students = Group::findOrFail($model->group_id)->students;
-//            file_put_contents(public_path().'/request.json',json_encode($model));
+            $students = Group::findOrFail($model->group_id)->attendanceStudents;
+            if (empty($students)) {
+                throw new BadRequestHttpException('4e ttam');
+            }
+            file_put_contents(public_path().'/testest.json',json_encode($students));
             foreach ($students as $student){
                 Attendance::firstOrCreate([
                     'student_id' => $student->id,
