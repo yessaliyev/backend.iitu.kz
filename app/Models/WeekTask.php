@@ -24,7 +24,6 @@ class WeekTask extends Model
             $file->move(public_path('uploads'), $file_name);
             $names[] = $file_name;
         }
-
         return json_encode($names,JSON_UNESCAPED_UNICODE);
     }
 

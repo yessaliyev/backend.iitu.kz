@@ -114,16 +114,26 @@ class SubjectController extends Controller
         ]);
 
         $data = $request->all();
-
         if ($request->file('files')) {
             $filenames = WeekTask::uploadTaskFile($request->file('files'));
+//            return gettype($filenames);
             $data['filenames'] = $filenames;
             unset($data['files']);
         }
+        $week_task = WeekTask::where('week_id',$request->week_id)
+            ->where('title',$request->title)
+            ->where('content',$request->content)
+            ->first();
 
-        $week_task = WeekTask::firstOrCreate($data);
+        if (empty($week_task)) $week_task = new WeekTask();
+        $week_task->week_id = $request->week_id;
+        $week_task->subject_id = $request->subject_id;
+        $week_task->title = $request->title;
+        $week_task->content = isset($request->content) ? $request->content : null;
+        $week_task->filenames = isset($data['filenames']) ? $data['filenames'] : null;
+        $week_task->save();
 
-        return response($week_task);
+        return response(['res' => $week_task]);
     }
 
     public function getAttendance(Request $request)
