@@ -24,7 +24,6 @@ Route::middleware(['auth:api'])->group(function () {
 });
 
 Route::middleware(['auth:api', 'auth.admin'])->group(function () {
-    Route::get('/user/get-roles', 'Api\UserController@getRoles');
     Route::post('/auth/register', 'Api\AuthController@register');
     Route::post('/department/create', 'Api\DepartmentController@create');
     Route::post('/department/update', 'Api\DepartmentController@update');
@@ -52,6 +51,8 @@ Route::middleware(['auth:api', 'auth.teacher'])->group(function () {
     Route::get('/subject/get-types', 'Api\SubjectController@getTypes');
     Route::get('/subject/get-groups', 'Api\SubjectController@getGroups');
     Route::post('/subject/add-to-week', 'Api\SubjectController@addToWeek');
+    Route::get('/subject/get-subject-by-id', 'Api\SubjectController@getSubjectById');
+//    getSubjectById
 });
 
 Route::middleware(['auth.service'])->group(function () {
@@ -70,6 +71,8 @@ Route::get('/specialty/get', 'Api\SpecialtyController@get');
 Route::get('/group/get-all', 'Api\GroupController@getAll');
 Route::get('/schedule/get', 'Api\ScheduleController@get');
 Route::get('news/get-by-id','Api\NewsController@getById');
+Route::get('/user/get-roles', 'Api\UserController@getRoles');
+
 
 
 

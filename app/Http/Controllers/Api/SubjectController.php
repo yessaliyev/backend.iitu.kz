@@ -156,4 +156,9 @@ class SubjectController extends Controller
         return Subject::findOrFail($request->subject_id)->groups;
     }
 
+    public function getSubjectById(Request $request)
+    {
+        return Subject::findOrFail($request->id);
+    }
+
 }
