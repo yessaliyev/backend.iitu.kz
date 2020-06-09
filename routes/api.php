@@ -28,7 +28,7 @@ Route::middleware(['auth:api', 'auth.admin'])->group(function () {
     Route::post('/department/create', 'Api\DepartmentController@create');
     Route::post('/department/update', 'Api\DepartmentController@update');
     Route::post('/add-news', 'Api\NewsController@add');
-    Route::get('/schedule/create', 'Api\ScheduleController@create');
+    Route::post('/schedule/create', 'Api\ScheduleController@create');
     Route::post('/department/create', 'Api\DepartmentController@create');
     Route::post('/department/update', 'Api\DepartmentController@update');
     Route::post('/specialty/create', 'Api\SpecialtyController@create');
